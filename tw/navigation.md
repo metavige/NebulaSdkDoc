@@ -5,8 +5,8 @@
   * # .Net
   * [QuickStart](dotnet/QuickStart.md)
   * [登入驗證](dotnet/Authentication.md)
-  * [NuGet]()
-  * [BootStrapper]()
+  * [NuGet](dotnet/nuget.md)
+  * [BootStrapper](dotnet/BootStrapper.md)
   * [Dependency Injection]()
   - - - -
   * # Java
