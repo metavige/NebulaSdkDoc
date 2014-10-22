@@ -12,7 +12,7 @@ using System.Linq;
 using System.Web;
 using Quanta.PaaS.Module.BootStrappers;
 using Microsoft.Practices.Unity;
- 
+
 namespace Sample.BL
 {
     public class SampleRegister : BusinessLayerBootStrapper
@@ -26,11 +26,8 @@ namespace Sample.BL
 }
 ```
 
-註冊 Dependency Injection
-----------------
-在 BusinessLayerBootStrapper 中，除了啟動時要執行的程式碼以外，另外一個重要的作用，就是註冊 Dependency Injection  
-在 BusinessLayerBootStrapper 中提供了以下的屬性與方法，開發者可以透過以下方式來註冊所需要的介面與實作類別  
-  
+使用者可以將需要在啟動時就執行的程式寫在 Execute 方法中  
+[BusinessLayerBootStrapper](Nebula.Module.md#BusinessLayerBootStrapper) 中程式所使用的方法以及屬性，請參考 [Nebula.Module](Nebula.Module.md)
 
 啟動 BootStarpper
 ----------------

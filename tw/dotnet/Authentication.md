@@ -14,14 +14,14 @@ OAuth2 登入機制流程說明
 ----------------
 
 在 Nebula SDK 中  
-若專案為 Asp.Net Mvc 4 以前的版本，有提供一個 [Nebula.Web.Security](dotnet/Nebula.Security.md) 的 Nuget Package   
-若專案為 Asp.NEt Mvc 5，請使用 [Nebula.Web.Identity](dotnet/Nebula.Web.Identity.md) 的 Nuget Package  
+若專案為 Asp.Net Mvc 4 以前的版本，有提供一個 [Nebula.Web.Security](dotnet/Nebula.Security.md) 的 Nuget Package
+若專案為 Asp.Net Mvc 5，請使用 [Nebula.Web.Identity](dotnet/Nebula.Web.Identity.md) 的 Nuget Package  
 安裝後，就可以與 [CAMP](http://www.quanta-camp.com) 的帳號做整合
 
-透過 Web Service 
+透過 Web Service
 ----------------
 
-[OAuth 2.0](http://oauth.net/2/) 的規格是公開的。開發者也可以自行實做 OAuth2 來做驗證，或者採用熟悉的 Framework 來驗證   
+[OAuth 2.0](http://oauth.net/2/) 的規格是公開的。開發者也可以自行實做 OAuth2 來做驗證，或者採用熟悉的 Framework 來驗證
 
 ### OAuth 2.0 的角色定義
 
@@ -34,9 +34,9 @@ OAuth2 登入機制流程說明
 
 伺服器網址為 https://www.quanta-camp.com/OpenId/  
 
-### OAuth2 的基本流程 
+### OAuth2 的基本流程
 
-以下是抽象化的流程概觀，以比較宏觀的角度來描述，不是實際程式運作的流程（圖出自 Spec 的 Figure 1）： 
+以下是抽象化的流程概觀，以比較宏觀的角度來描述，不是實際程式運作的流程（圖出自 Spec 的 Figure 1）：
 
 ```
 +--------+                               +---------------+
@@ -77,8 +77,8 @@ OAuth2 登入機制流程說明
 
 #### 參數
 
-參數名稱 | 必要/選擇性 | 內容值意義 
- --- | --- | --- 
+參數名稱 | 必要/選擇性 | 內容值意義
+ --- | --- | ---
 client_id | 必要 | 產品代碼。<br/> 請先申請一個 CAMP 產品，取得產品代碼以及驗證碼。
 redirect_uri | 必要 | 登入驗證後，HTTP 302 重導回 SaaS 的網址
 response_type | 必要 | 'code'
@@ -93,8 +93,8 @@ scope | 選擇 | 通用參數，用來指定資源存取範圍。<br/>資源內�
 http://localhost/?code=Q8TJ%21IAAAAE9k7bl81oIIlqLW5wxZ3pcYHUziL86uB6NKizoCGKscIQEAAAEcjOnigP_pqgfWrUe2d8sug6tK_pmKVVs4x8xIQfsB-6Pw8uy5nuB_XYoQqiC3Fex7wmOo0qufNlQIZKTL8KmyAXNQFbTP4Dqun-Jsgy481yN1Yvkyb6bn1-49KScZ0T0Ycs8k_iZ15A9M1LscgIPrsqw3wbqbLvX_THg_d2OytF3INGTV5Df8wd_HpR27-MIuf7FR0cPBMaXsb8JTMkgzbGYH2uNc0KqXOwK6bo7F0GjzXZDujB4J7_6MHYFnV5IgQxLG0gPmI3ieiNEqA75E2WBVhX0mF9FH_im3JWfDrO1DUczmlufZqQcTOUzgBbl9viE75KgAn3YJIynCMQLLY9NAosxXhTh-Ue26GcaWl7OnbOMGkvk8ZQ5rk1X1VCE&state=abc
 ```
 
-參數名稱 | 意義 
- --- | --- 
+參數名稱 | 意義
+ --- | ---
 code | Authorization Code
 state | 狀態值。服務將回傳參數中傳入的 state 資料。
 
@@ -113,15 +113,15 @@ HTTP BASIC 驗證，帳號為**產品代碼**，密碼為**產品授權碼**
 
 ##### HEADER
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Content-Type | application/x-www-form-urlencoded
 Accept | application/json
 
 ##### 參數 (POST)
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 code | 請傳入前一步驟取得的 Authorization Code
 redirect_uri | 請輸入與第一步驟相同的 URI
 state | 請輸入與第一步驟相同的 state
@@ -140,8 +140,8 @@ HTTP 200 - 成功
 }
 ```
 
-參數名稱 | 意義 
- --- | --- 
+參數名稱 | 意義
+ --- | ---
 access_token | Access Token. 存取 Resource 的必要參數<br/>請自行保存。
 token_type | 'bearer', 用來表示，api 驗證傳遞 token 的方式
 expires_in |  Token 有效時間，單位：秒。
@@ -157,13 +157,13 @@ scope | 回傳當初第一步驟要求的scope資料
 
 ##### 使用者帳號
 
-###### URI 
+###### URI
 **GET Profile/UserIdentity**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -177,13 +177,13 @@ HTTP 200
 -----
 ##### 使用者資訊  
 
-###### URI 
+###### URI
 **GET Profile/UserInfo**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -201,13 +201,13 @@ HTTP 200
 -----  
 ##### 公司資訊
 
-###### URI 
+###### URI
 **GET Profile/CompanyInfo**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -222,7 +222,7 @@ HTTP 200
 -----
 ####  4. Refresh Token
 
-當 Access Token 過期後，需要重新取得一個新的 Access Token. 
+當 Access Token 過期後，需要重新取得一個新的 Access Token.
 
 ##### URI
 
@@ -234,8 +234,8 @@ HTTP BASIC 驗證，帳號為**產品代碼**，密碼為**產品授權碼**
 
 ##### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 code | 請傳入步驟 2 取得的 Refresh Token
 grant_type | 'refresh_token'
 
@@ -253,8 +253,8 @@ HTTP 200 - 成功
 }
 ```
 
-參數名稱 | 意義 
- --- | --- 
+參數名稱 | 意義
+ --- | ---
 access_token | Access Token. 存取 Resource 的必要參數<br/>請自行保存。
 token_type | 'bearer', 用來表示，api 驗證傳遞 token 的方式
 expires_in |  Token 有效時間，單位：秒。
