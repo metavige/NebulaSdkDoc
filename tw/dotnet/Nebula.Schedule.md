@@ -154,5 +154,6 @@ public class Example : IJob
 ```
 
 ## 執行記錄
+-----------------
 
 Nebula CloudPlatform 在每次執行排程工作後，都會把排程的執行狀況記錄下來，開發者可透過 [開發者專區](http://www.quanta-camp.com/Developer/) 的 系統設定 -> 排程設定 -> 排程執行紀錄查詢功能、或透過 [Management Module](Module.Management.md) 的方法來查詢出排程執行的紀錄。

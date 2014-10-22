@@ -2,14 +2,14 @@
 Nebula.Module
 ================
 
-Nebula.Module 是整個 Nebula SDK 的核心模組，所有的 Nebula 基本功能模組都包含在這裡
+Nebula.Module is the entire core module of Nebula SDK, all basic module functions of Nebula are contained here.  
 
 ## Install
 ----------------
 
     Install-Package Nebula.Module
 
-## 模組列表
+## Module List
 ----------------
 
 * [Database Module](Module.Database.md)  
@@ -25,16 +25,16 @@ Nebula.Module 是整個 Nebula SDK 的核心模組，所有的 Nebula 基本功�
 ## AppContext
 ----------------
 
-`Quanta.PaaS.Module.AppContext` 這個物件，為 Nebula SDK 的主體 ，所有的 Module或與一些與SaaS相關的屬性值，都透過此物件取得。  
+`Quanta.PaaS.Module.AppContext` object is the main body of Nebula SDK; all modules and SaaS related property values are obtained through this object.
 
-目前 `Quanta.PaaS.Module.AppContext` 內部有結合 Unity 2.0。故也可使用 `ServiceLocator` 的機制取得 IoC 的物件。  
+Currently `Quanta.PaaS.Module.AppContext` contains Unity 2.0, hence it can obtain IoC object by `ServiceLocator` mechanism.  
 
-### 常用屬性說明
+### Common Property Descriptions
 ----------------
 
 * Current
 
-	靜態屬性，取得目前環境的 `AppContext`
+    Static property, obtain the current environmental `AppContext`  
 
 ```csharp
 AppContext appContext = AppContext.Current;
@@ -42,7 +42,7 @@ AppContext appContext = AppContext.Current;
 
 * SolutionId
 
-	取得此 SaaS 應用程式的 `SolutionId`
+    Obtain this SaaS application's `SolutionId`  
 
 ```csharp
 string solutionId = AppContext.Current.SolutionId;
@@ -50,7 +50,7 @@ string solutionId = AppContext.Current.SolutionId;
 
 * ProductId
 
-	取得此 SaaS 應用程式在 web.config 中設定的產品代碼
+	Obtain ProductId of this SaaS application set in web.config  
 
 ```csharp
 string productId = AppContext.Current.ProductId;
@@ -58,7 +58,7 @@ string productId = AppContext.Current.ProductId;
 
 * ApplicationId
 
-	取得此 SaaS 應用程式在 web.config 設定的應用程式代碼
+	Obtain ApplicationId of this SaaS application set in web.config  
 
 ```csharp
 string applicationId = AppContext.Current.ApplicationId;
@@ -66,18 +66,18 @@ string applicationId = AppContext.Current.ApplicationId;
 
 * EnvironmentGuid
 
-	取得 Multi-Tenancy 識別碼，詳情請參考 [Multi-Tenancy](MultiTenancy.md) 的說明
+	Obtain Multi-Tenancy ID, pease read [Multi-Tenancy](MultiTenancy.md) for more information  
 
 ```csharp
 string tenancyId = AppContext.Current.EnvironmentGuid;
 ```
 
-### 常用方法說明
+### MultiTenancy
 ----------------
 
 * GetModule&lt;IModuleInterface&gt;
 
-	目前 Neubla Module 的取得，都需要透過這個方法來取得實體物件
+	Get the current Nebula Module instance. All actual module instances must be obtained through this method.  
 
 ```csharp
 using Quanta.PaaS.Module;
@@ -94,7 +94,7 @@ public class SampleService
 
 * Resolve&lt;RegisterType&gt;
 
-	如果有使用 [BootStrapper](BootStrapper.md) 來做 IoC 註冊，也可透過 `AppContext` 來取得 Instance
+	If you use [BootStrapper] do IoC registration, you can also obtain instance through `AppContext`.  
 
 ```csharp
 public interface IService
@@ -122,18 +122,16 @@ public class MyController : Controller
 ## BusinessLayerBootStrapper
 ----------------
 
-一般 SaaS 應用程式中，會使用以下的 `Quanta.PaaS.Module.BootStrappers.BusinessLayerBootStrapper` 類別繼承實作
+Common SaaS application always use the following `Quanta.PaaS.Module.BootStrappers.BusinessLayerBootStrapper` class to inherit and to implement.  
+You can read [BootStrapper] about use and settings of BootStrapper  
+The following explains the commonly used properties and methods  
 
-`BootStrapper` 的使用與設定，可以參考 [BootStrapper](BootStrapper.md)
-
-以下說明常用的屬性以及方法：
-
-### 常用屬性說明
+### Common Property Descriptions
 ----------------
 
 * IUnityContainer Container
 
-	提供 [IUnityContainer](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.iunitycontainer%28v=pandp.20%29.aspx) 物件，若 `BusinessLayerBootStrapper` 提供的方法不足使用，可直接使用 [IUnityContainer](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.iunitycontainer%28v=pandp.20%29.aspx) 來註冊  
+	Provides [IUnityContainer](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.iunitycontainer%28v=pandp.20%29.aspx) object. If there is insufficient methods provided by `BusinessLayerBootStrapper` to use, you can directly use [IUnityContainer](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.iunitycontainer%28v=pandp.20%29.aspx) to register.  
 
 ```csharp
 public class MyBootStrapper : BusinessLayerBootStrapper
@@ -145,12 +143,11 @@ public class MyBootStrapper : BusinessLayerBootStrapper
 }
 ```
 
-### 常用方法說明
+### Common Methods Descriptions
 
 * void RegisterDataContext<TDataContext>() where TDataContext : PaaSEntityContext
 
-	註冊 Nebula.Module 中的 EntityContext 物件
-
+    Register `EntityContext` object of Nebula.Module  
 
 ```csharp
 public MyDataConetxt : PaaSEntityContext
@@ -171,9 +168,8 @@ public class MyBootStrapper : BusinessLayerBootStrapper
 
 * void RegisterTypeForInterception<TTo, TFrom>() where TFrom : TTo
 
-	註冊類型，`TFrom` 類別必須繼承或實作 `TTO` 類別  
-	透過這個方法註冊，Nebula SDK 會協助加上 Transaction Support 、Exception Handler
-
+	Register type; `TFrom` class must inherit or implement `TTO` class
+	Nebula SDK would assist to add Transaction Support, Exception Handler by registerion through this method  
 
 ```csharp
 public interface IService
@@ -201,10 +197,11 @@ public class MyBootStrapper : BusinessLayerBootStrapper
 
 * void RegisterTypeForInterception<TTo, TFrom>(LifetimeManager lifetimeManager) where TFrom : TTo
 
-	註冊類型，`TFrom` 類別必須繼承或實作 `TTO` 類別  
-	透過這個方法註冊，Nebula SDK 會協助加上 Transaction Support 、Exception Handler
+	Register type; `TFrom` class must inherit or implement `TTO` class  
+	Nebula SDK would assist to add Transaction Support, Exception Handler by registerion through this method  
 
-	[LifetimeManager](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.lifetimemanager%28v=pandp.20%29.aspx) 的使用方式，請參考 [Understanding Lifetime Managers](http://msdn.microsoft.com/en-us/library/ff660872%28v=pandp.20%29.aspx)  
+	Please read [Understanding Lifetime Managers](http://msdn.microsoft.com/en-us/library/ff660872%28v=pandp.20%29.aspx) for use on [LifetimeManager](http://msdn.microsoft.com/en-us/library/microsoft.practices.unity.lifetimemanager%28v=pandp.20%29.aspx)  
+
 
 ```csharp
 public interface IService
@@ -228,3 +225,5 @@ public class MyBootStrapper : BusinessLayerBootStrapper
 	}
 }
 ```
+
+[BootStrapper]: <BootStrapper.md>

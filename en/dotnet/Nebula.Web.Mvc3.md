@@ -2,23 +2,23 @@
 Nebula.Web.Mvc3
 ================
 
-Asp.Net MVC 3.0 之後，有針對 IoC 機制提供了一個 `DependencyResolver` 的方式，來產生 `Controller` 的 Instance，所以在 Asp.Net MVC 3.0 的作法，與 Asp.Net MVC 2.0 的方式有所區隔。
+Asp.Net MVC 3.0 and later version provides a `DependencyResolver` method on IoC technique, which is used to create an instance of `Controller`. Hence there is a development difference between Asp.Net MVC 3.0 and Asp.Net MVC 2.0.
 
 ## Install
 ----------------
 
     Install-Package Nebula.Web.Mvc3
 
-> Note: 請勿與其他 Mvc Package (如 Nebula.Web.Mvc) 一起安裝
+> Note: o not install with other Mvc Package (such as Nebula.Web.Mvc)
 
 ## WebActivator
 ----------------
 
-在安裝 Nebula.Web.Mvc3 之後，在專案裡面會產生一個目錄 App_Start, 裡面會新增一個 `NebulaMvc3WebActivator.cs` 檔案。透過了 [WebActivator](https://github.com/davidebbo/WebActivator) 的技術，在啟動 Application 的時候，會自動執行這個程式。
+After installing Nebula.Web.Mvc3, your project will create an `App_Start` folder, which contains a `NebulaMvc3WebActivator.cs` file. With the [WebActivator](https://github.com/davidebbo/WebActivator) technique, this program would be activated as the Application starts.
 
 ![Nebula.Web.Mvc3 WebActivator](../../images/Nebula.Web.Mvc31.png)
 
-產生出來的 WebActivator 範例如下 :
+The generated WebActivator code is as the sample below:  
 
 ```csharp
 [assembly: WebActivator.PostApplicationStartMethod(typeof(SaaS.Sample.Web.View.App_Start.NebulaMvc3WebActivator), "Init")]
@@ -42,17 +42,15 @@ namespace SaaS.Sample.Web.View.App_Start
 }
 ```
 
-此程式是透過 Nuget 所提供的 [Transformation](http://docs.nuget.org/docs/creating-packages/configuration-file-and-source-code-transformations) 功能產生，所產生出來的程式碼 namespace 將是個專案的 namespace。  
-這邊所提供的範例僅供參考。  
-
+This code is created by [Transformation](http://docs.nuget.org/docs/creating-packages/configuration-file-and-source-code-transformations)of Nuget. The code namespace would be the same namespace of the project. This sample is for reference.  
 
 ## Multi-Tenancy
 ----------------
 
-透過修改 `Global.asax.cs` 的設定，讓 Mvc 可以支援 [Multi-Tenancy](../MultiTenancy.md)
+By modifing the `Global.asax.cs` setting, so Mvc can support [Multi-Tenancy](../MultiTenancy.md)
 
 ```csharp
-// 將 routes.MapRoute 方法改為 routes.MapPaaSRoute 方法，參數不變。
+// The routes.MapRoute method to routes.MapPaaSRoute method parameters unchanged.
 routes.MapPaaSRoute(
     "Default", // Route name
     "{controller}/{action}/{id}", // URL with parameters

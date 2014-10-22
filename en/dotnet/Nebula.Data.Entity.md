@@ -1,7 +1,7 @@
 Nebula.Data.Entity
 ================
 
-目前版本支援 Entity Framework 5.0。
+The currently supported Entity Framework version is 5.0.  
 
 ## Install
 ----------------
@@ -11,8 +11,8 @@ Nebula.Data.Entity
 ## web.config
 ----------------
 
-透過修改 `defaultConnectionFactory` 的方式，讓 EntityFramework 可以取得存取資料庫資源的連線字串  
-將預設的 `System.Data.Entity.Infrastructure.LocalDbConnectionFactory` 改為 `Nebula.Data.Entity.NebulaDbConnectionFactory`
+By amending the `defaultConnectionFactory` way for EntityFramework can get access database connection string resources
+The default `System.Data.Entity.Infrastructure.LocalDbConnectionFactory` to `Nebula.Data.Entity.NebulaDbConnectionFactory`  
 
 ```xml
 <entityFramework>
@@ -24,7 +24,7 @@ Nebula.Data.Entity
 </entityFramework>
 ```
 
-## DbContext 範例  
+## DbContext sample  
 ----------------
 
 ```csharp
@@ -47,4 +47,4 @@ public class Catelog {
 }
 ```
 
-base 建構子參數，為資料庫名稱
+Base constructor with "DBName" parameter.

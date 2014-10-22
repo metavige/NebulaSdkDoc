@@ -1,15 +1,12 @@
-
-Nebula.Schedule
+Schedule Module
 ================
 
-提供使用者撰寫特定工作服務以及排程工作的功能。  
+Provides user functions to code certain task services and schedule job.
 
-此 Package 主要提供 `IJob` 介面類別，供開發者撰寫 Schedule Job 相關程式。  
+Developer can code a task into a DLL file by implementing `IJob` interface, and set the execution configuration file. Then compress the DLL, Configuration file and all related DLL files used by the task into a ZIP file, and upload the ZIP file to [Developer Area]. Finally set the schedule execution for this task services on CAMP portal.
 
-使用者可以藉於實作 `IJob` 此介面將工作邏輯撰寫成為一個DLL檔，設定執行 Configuration 檔，將該 DLL 、Configuration 檔以及將服務所引用的相關 DLL 檔(若有使用)一起壓縮成為 ZIP 檔後，透過 [開發者專區](http://www.quanta-camp.com/Developer/) 將專案打包上傳。  
-
-並在 [開發者專區](http://www.quanta-camp.com/Developer/) 設定該工作服務的執行時間，Quanta Cloud Platform 便會依照使用者設定的排程時間自動執行該工作服務。  
-使用者可透過 [開發者專區](http://www.quanta-camp.com/Developer/) 中的應用程式管理工作，以及透過排程管理功能來設定排程時間。
+Quanta Cloud Platform would automatically perform the task service execution according to the user's schedule setting.
+Developer can use the Schedule Maintain in the [Developer Area] to upload program, and use the Schedule Maintain to schedule execution time.
 
 ## Install
 ----------------
@@ -19,8 +16,7 @@ Nebula.Schedule
 ## IJob
 ----------------
 
-IJob 的實作範例：  
-
+IJob implementation：
 ```csharp
 using Quanta.PaaS.Schedule;
 
@@ -36,41 +32,41 @@ namespaec Sample
 }
 ```
 
-## 使用說明
-----------------
+## Description
+-----------------
 
-Nebula.Schedule 中包含以下兩個物件:  
+PaaS.Schedule contains the following two objects:  
 
 * `IJob`  
-	Interface。所有服務所必須繼承的介面，此介面只提供 `Execute(JobExecutionContext context)` 方法，使用者必須將服務寫在此方法中。
+	Interface. All services must inherit this interface; this interface only provide `Execute(JobExecutionContext context)` method , and developer must code services inside this method.
 
-* `JobExecutionContext` 類別  
-	此為服務啟用時所傳入的參數。包含的相關資料如下表，這些欄位資料可以供使用者在開發工作時使用，以便服務工作的追蹤與設定。  
+* `JobExecutionContext` type
+	This is the input variable when service is activated, including related data as the following below. These data fields can be used by developer during development to track and set the task easily.
 
-### 類別屬性說明
+### Class property descriptions
 
-`JobExecutionContext` 類別屬性，以程式方式說明:  
+`JobExecutionContext` class properties, described by the sample code below:  
 
 ```csharp
 namespace Quanta.PaaS.Schedule
 {
     /// <summary>
-    /// 執行 Job 所傳遞的參數資料。
+    /// Job execution data.
     /// </summary>
     public class JobExecutionContext
     {
         /// <summary>
-        /// 工作排程 Id
+        /// task schedule ID
         /// </summary>
         public long? Id { get; }
 
         /// <summary>
-        /// 工作排程名稱
+        /// task scheule name
         /// </summary>
         public string Name { get; }
 
         /// <summary>
-        /// 工作排程描述
+        /// task schedule description
         /// </summary>
         public string Description { get; }
 
@@ -85,42 +81,42 @@ namespace Quanta.PaaS.Schedule
         public string SolutionId { get; }
 
         /// <summary>
-        /// 上次執行時間
+        /// last execution time
         /// </summary>
         public DateTime? LastInvokeTime { get; }
 
         /// <summary>
-        /// 服務工作參數。若此工作有需要設定參數時，在執行時可以透過此欄位取得預設值。
+        /// task service variables. If this task requires configuration variables, you can use this field to get default values in runtime.
         /// </summary>
         public IDictionary<string, object> JobParas { get; }
 
         /// <summary>
-        /// 服務執行紀錄
+        /// service execution log
         /// </summary>
         public TextWriter Log { get; }
 
         /// <summary>
-        /// 錯誤訊息紀錄
+        /// service error log
         /// </summary>
         public TextWriter Error { get; }
 
         /// <summary>
-        /// Stack Trace 訊息紀錄
+        /// Stack Trace message log
         /// </summary>
         public TextWriter StackTrace { get; }
     }
 }
 ```
 
-## IJob 範例
-----------------
+## IJob sample
+-----------------
 
 ```csharp
 using Quanta.PaaS.Schedule;
 
 public class Example : IJob
 {
-	//若Job中有需要引用Service時可透過IoC方法使用Service
+	//You can use IoC method to use service if Job needs to invoke it
 	public IMemberUserService obj { get; private set; }
 
 	public Example(IMemberUserService ms)
@@ -132,20 +128,20 @@ public class Example : IJob
 	{
 		try
 		{
-			// context.Log.WriteLine()方法提供開發者紀錄Job執行的相關資料
-			// 若Job執行失敗時可以透過此資料發現問題
-			// 此資料會在Job執行結束自動寫入資料庫中以便查詢
-			context.Log.WriteLine("範例程式開始執行了");
+			// context.Log.WriteLine() method helps developer to log necessary data of job execution
+			// you can use this data to find the bug if Job execution fails
+			// data would be automatically saved to database for future query when Job execution is finished
+			context.Log.WriteLine("Sample code starts to run");
 
-			// 若該Job需要有參數各自設定時
-			// 請透過context.JobParas[參數名稱]方法取得
+			// If this Job has a variable to set
+			// Please use context.JobParas[Variable name]
 			string strUser = context.JobParas["User"].ToString();
 			obj.UpdateData(strUser);
 		}
 		catch (Exception ex)
 		{
-			//當Job執行失敗時，使用者可以利用context.Error.WriteLine()
-			//以及context.StackTrace.WriteLine()來記錄Error Message以及Stack Trace
+			//When job execution fail, developer can use context.Error.WriteLine()
+			//and use context.StackTrace.WriteLine() to log Error Message and Stack Trac
 			context.Error.WriteLine(ex.Message);
 			context.StackTrace.WriteLine(ex.StackTrace);
 		}
@@ -153,6 +149,9 @@ public class Example : IJob
 }
 ```
 
-## 執行記錄
+## Execution log
+-----------------
 
-Nebula CloudPlatform 在每次執行排程工作後，都會把排程的執行狀況記錄下來，開發者可透過 [開發者專區](http://www.quanta-camp.com/Developer/) 的 系統設定 -> 排程設定 -> 排程執行紀錄查詢功能、或透過 [Management Module](Module.Management.md) 的方法來查詢出排程執行的紀錄。
+Everytime a scheduled task is done, Nebula Cloud Platform would log the whole status. Developer can use SaaS Log -> Schedule Log in [Developer Area], or by [Management Module](Module.Management.md) , to get the schedule execution logs.
+
+[Developer Area]: <http://www.quanta-camp.com/Developer/>

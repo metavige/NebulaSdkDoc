@@ -1,21 +1,20 @@
 
 Nebula.Web.Security
 ================
-
-此 Package 提供了 [OAuth2](http://oauth.net/2/) 登入機制實作的相關類別。  
-目前這個 Package 僅支援 Asp.Net MVC 4 以前的專案，Asp.Net Mvc 5 之後的專案請使用 [Nebula.Web.Identity](Nebula.Web.Identity.md)  
+This Package provides [OAuth2](http://oauth.net/2/) classes of login implementation.
+This Package is currently only supports Asp.Net MVC 4 previous project, Asp.Net Mvc project after 5 Use [Nebula.Web.Identity](Nebula.Web.Identity.md)  
 
 ## Install
 ----------------
 
     Install-Package Nebula.Web.Security
 
-## web.config 設定
+## web.config settings
 ----------------
 
-以下的設定為參考範例。  
+The following settings is an example.
 
-目前以下的設定，除了 &lt;authentication/&gt; 的設定需要自行加入，handler 的設定在加入 `Nebula.Web.Security` 的 Package 時，便會自動加入。
+Other than the setting of &lt;authentication/&gt; element, which needs to be manually inserted, the other settings of handler would be automatically inserted when `Nebula.Web.Security` Package is added.
 
 ```xml
 <configuration>
@@ -38,7 +37,7 @@ Nebula.Web.Security
 </configuration>
 ```
 
-加入以上設定後，請在 `Global.asax.cs` 忽略 LogOn 這個網址，避免錯誤
+Please add code routes.IgnoreRoute("LogOn") on `Global.asax.cs` for error prevention, after you add the above settings.  
 
 ```csharp
 public class MvcApplication : System.Web.HttpApplication
@@ -58,17 +57,15 @@ public class MvcApplication : System.Web.HttpApplication
 }
 ```
 
-## 程式授權驗證檢查
+## Program Authorization and Authentication Checks
 ----------------
 
-採用 SDK 之後，在程式中，有兩種方式來檢查是否有通過驗證
+There are two methods to add login authorization authentication code in programs.
 
 ### Global.asax.cs
 
-GlobalFilter 這個機制，在 Asp.Net Mvc 3 之後才支援  
-
-若所有的 Controller/Action 都需要作登入驗證  
-在 Asp.Net MVC 3 中，可以在 `Global.asax.cs` 中加入 GlobalFilter  
+GlobalFilter this mechanism, only support after Asp.Net Mvc 3.  
+You can add GlobalFilter on `Global.asax.cs` in Asp.Net MVC 3, of all Controller/Action require login authentication.
 
 ```csharp
 using Quanta.PaaS.Web.Security;
@@ -85,7 +82,7 @@ public class MvcApplication : System.Web.HttpApplication
 
 ### FilterConfig.cs
 
-如果是 Asp.Net MVC4 ，要到 `App_Start/FilterConfig.cs` 檔案中去加入 Filter 設定  
+If Asp.Net MVC 4, you need add filter setting on `App_Start/FilterConfig.cs`  
 
 ```csharp
 using Quanta.PaaS.Web.Security;
@@ -100,10 +97,10 @@ public class FilterConfig
 }
 ```
 
-### Attribute 標記
+### Attribute codes
 
-若某些 Action 需要登入驗證，可在 `Controller` 或 `Action` 上加入 [OAuth2Authorize] 這個屬性  
-當進入這個 `Action` 的時候，就會檢查使用者是否有登入
+When some Action requires login authentication, you can add attribute [OAuth2Authorize] on `Controller` or `Action`.  
+When user navigates into this `Action`, it will check whetever the user has logged in.  
 
 ```csharp
 using Quanta.PaaS.Web.Security;
@@ -119,7 +116,7 @@ public class HomeController : Controller
 ```
 
 
-## 取得驗證的登入帳號
+## Get authorize account identity
 ----------------
 
 ```csharp
@@ -136,20 +133,19 @@ public class HomeController : Controller
 }
 ```
 
-在 Nebula Public Cloud 中，預設的 OAuth2 Provider 網址為 [http://www.quanta-camp.com/OpenId](http://www.quanta-camp.com/OpenId)。  
-
+The default URL of OAuth2 Provider in Nebula Public Cloud is [http://www.quanta-camp.com/OpenId](http://www.quanta-camp.com/OpenId).  
 
 ## Asp.Net Provider Support
 
-Asp.Net 2.0 提供一個 [Provider](http://msdn.microsoft.com/zh-tw/library/aa478948.aspx) 的機制，將角色、使用者資料作抽象化。Nebula Security Module 根據這個 Provider 的 Model，實作出 `RoleProvider` 以及 `ProfileProvider`，提供給 SaaS 服務應用程式，可利用以下的方式，與 Nebula CloudPlatform 的使用者資料整合。
+Asp.Net 2.0 provides a [Provider](http://msdn.microsoft.com/en-us/library/aa478948.aspx) technique, which abstract role and user data. Nebula Security Module implement `RoleProvider` and `ProfileProvider` based on this Provider model, that suppports SaaS to integrate user data of Nebula Cloud Platform by the methods below.
 
 ![Asp.Net 2.0 Provider Model](http://i.msdn.microsoft.com/dynimg/IC126090.gif)  
 
-以下將說明相關的使用方式：  
+The following below explain the related uses：  
 
 ### RoleProvider
 
-目前 Nebula CloudPlatform 所實作的 `RoleProvider` 設定方式如下：
+`RoleProvider` settings of Nebula Cloud Platform are implemented in the following way below:
 
 ```xml
 <configuration>
@@ -164,11 +160,11 @@ Asp.Net 2.0 提供一個 [Provider](http://msdn.microsoft.com/zh-tw/library/aa47
 </configuration>
 ```
 
-其他屬性請參考 [RoleManager](http://msdn.microsoft.com/zh-tw/library/ms164660%28v=vs.80%29.aspx) 的設定說明。  
+Please read [RoleManager](http://msdn.microsoft.com/en-us/library/ms164660%28v=vs.80%29.aspx) for other properties and settings.
 
-目前 Nebula.Security 有提供 `RoleProvider` 所有的功能實作。所有查詢或維護的 `Role` 資料，都會是在與登入使用者相同的 `Solution` (Solution 說明請參考 [Multi-Tenancy](../MultiTenancy.md))。
+Nebula.Security provides all `RoleProvider` implemented functions. All queries or maintained `Role` data will be within the `Solution` user logs in. (Please read [Multi-Tenancy](../MultiTenancy.md) for more about Solution)。
 
-使用範例說明 :  
+Sample code descriptions:
 ```csharp
 using Quanta.PaaS.Web.Security;
 using System.Web;
@@ -180,7 +176,7 @@ public class UserController : Controller
 
     public ActionResult Index()
     {
-      // 取得登入使用者所有角色資料
+      // Get the logged in user\'s role data
       string[] allRoles = Roles.GetRolesForUser();
 
       return View();
@@ -188,16 +184,16 @@ public class UserController : Controller
 }
 ```
 
-如何使用 Asp.Net Role API，請參考 MSDN 的 [System.Web.Security.Roles](http://msdn.microsoft.com/en-us/library/system.web.security.roles.aspx) (請根據實際 .Net Framework 版本選擇相同版本的文件說明) 的文件說明以及範例。 或者是參考 [Asp.Net 角色管理](http://msdn.microsoft.com/en-us/library/5k850zwb.aspx)
+Please read MSDN [System.Web.Security.Roles](http://msdn.microsoft.com/en-us/library/system.web.security.roles.aspx) about how to use Asp.Net Role API and more examples (Please select the corresponding .NET Framework document). Or, refer to [Asp.Net Role Management](http://msdn.microsoft.com/en-us/library/5k850zwb.aspx)
 
 ### ProfileProvider
 
-Nebula CloudPlatform 所提供的 Profile 功能，主要是提供程式開發人員可以取得登入使用者在 [CAMP](http://www.quanta-camp.com) 網站的相關資料。目前提供的資料有以下的項目：  
+The Profile functions provided by Nebula Cloud Platform, which help developer to obtain logged in users' data at [CAMP](http://www.quanta-camp.com); The currently provided data are:
 
-* UserInfo : 使用者相關資料
-* CompanyInfo : 使用者所屬公司資料
+* UserInfo : User information
+* CompanyInfo : User's company's information
 
-#### web.config 設定
+#### web.config settings
 
 ```xml
 <configuration>
@@ -213,7 +209,7 @@ Nebula CloudPlatform 所提供的 Profile 功能，主要是提供程式開發�
 </configuration>
 ```
 
-#### 使用 Profile
+#### Use Profile
 
 ```csharp
 using Quanta.PaaS.Web.Security;
@@ -227,55 +223,55 @@ public class HelloWorld
     {
       PaaSProfile profile = HttpContext.Current.Profile as PaaSProfile;
 
-      // 舉例，顯示使用者名稱
+      // eg. display username
       Console.WriteLine(" User Name : {0} ", profile.UserDetail.Name);
     }
 }
 ```
 
-#### PaaSProfile 屬性說明
+#### PaaSProfile Property Description
 
-以下用程式方式，說明 Profile 的相關屬性：  
+The sample code below describes Profile properties:
 
 ```csharp
 namespace Quanta.PaaS.Web.Security
 {
   /// <summary>
-  /// 使用者 Profile
+  /// User Profile
   /// </summary>
   public class PaaSProfile
   {
-    /// 使用者相關資料
+    /// User's detail
     public UserInfo UserDetail { get; }
-    /// 使用者所屬公司資料
+    /// User's company's detail
     public CompanyInfo CompanyDetail { get; }
   }
 
   /// <summary>
-  /// 使用者相關資料
+  /// User's detail
   /// </summary>
   public class UserInfo
   {
-    /// 使用者登入代碼
+    /// User ID
     public string UserId { get; }
-    /// 使用者名稱
+    /// Username
     public string Name { get; }
-    /// 使用者英文名稱
+    /// User's English Name
     public string EnglishName { get; }
-    /// 電子郵件
+    /// E-mail address
     public string Email { get; }
-    /// 所屬公司代碼
+    /// Company ID
     public string CompanyId { get; }
   }
 
   /// <summary>
-  /// 使用者所屬公司資料
+  /// User's company's detail
   /// </summary>
   public class CompanyInfo
   {
-    /// 公司代碼
+    /// Company ID
     public string CompanyId { get; }
-    /// 公司名稱
+    /// Company Name
     public string Name { get; }
   }
 }

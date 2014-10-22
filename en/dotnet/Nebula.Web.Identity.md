@@ -1,23 +1,23 @@
 Nebula.Web.Identity
 ================
 
-用來支援 Asp.Net Identity (2.0) 的登入機制。  
+To support Asp.Net Identity (2.0) login mechanism.  
 
-## 安裝 Package
+## Install
 -----------------
 
     Install-Package Nebula.Web.Identity
 
 
-> Note: 請勿與 [Nebula.Web.Security](#Nebula.Web.Security) 一起安裝
+> Note: Do not install with [Nebula.Web.Security] (Nebula.Web.Security.md)
 
-## 簡介
+## Introduction
 -----------------
 
-目前在 Asp.Net MVC 5 之後，內建的驗證機制已經由原本的 `Membership` 改成 `Asp.Net Identity`，為了與原本的驗證機制區分，將獨立一個 Package 用來支援 Asp.Net Identity
-由於 `Asp.Net Identity` 與原本的 `Membership` 機制不相同，所以新專案建立的時候，在 `web.config` 有幾項與早期支援 `FormsAuthentication` 不一樣的地方：  
+Currently, after Asp.Net MVC 5, built-in authentication mechanism has been changed from the original `Membership` to `Asp.Net Identity`, in order to distinguish with the original authentication mechanism, used to support the independence of a Package Asp.Net Identity  
+Because `Asp.Net Identity` with the original `Membership` mechanism is not the same, so when the new project created in `web.config` There are several early support `FormsAuthentication` not the same place:  
 
-### 不再使用 FormsAuthentication 驗證機制
+### No authentication mechanism using FormsAuthentication
 
 ```xml
 <configuration>
@@ -27,7 +27,7 @@ Nebula.Web.Identity
 </configuration>
 ```
 
-### 移除 IIS FormsAuthenticationModule 的使用  
+### Remove IIS FormsAuthenticationModule  
 
 ```xml
 <configuration>
@@ -39,13 +39,13 @@ Nebula.Web.Identity
 </configuration>
 ```
 
-安裝 `Nebula.Web.Identity` Package 之後，會產生一個 `Controllers/CampAccountController.cs` 的檔案
+After installing `Nebula.Web.Identity` Package, will generate a `Controllers/CampAccountController.cs`
 
-以下程式片段為範例，請以實際產生出的檔案為主：  
+The following program fragment for example, the actual file mainly produce:  
 
 ```csharp
 /// <summary>
-/// CAMP 登入登出 Controller.
+/// CAMP LogOn/LogOut Controller.
 /// </summary>
 public class CampAccountController : Controller
 {
@@ -136,33 +136,32 @@ public class ChallengeResult : HttpUnauthorizedResult
 ```
 
 
-## 程式修改說明
+## How-to
 -----------------
+Go `App_Start/Startup.Auth.cs` file, make the following changes to the program
 
-請到 `App_Start/Startup.Auth.cs` 檔案中，做以下程式的修改  
+### Change LoginPath
 
-### 修改 LoginPath
+Find `LoginPath = new PathString("/Account/Login")`, modify the path to `LoginPath = new PathString("/CampAccount/Login")`  
 
-找到 `LoginPath = new PathString("/Account/Login")`，將路徑修改為 `LoginPath = new PathString("/CampAccount/Login")`  
+### Add CampAuthentication external login support
 
-### 加上 CampAuthentication 支援設定
+Add the final paragraph in ConfigurationAuth method code: `app.UseCampAuthentication();`
 
-在 ConfigurationAuth 方法最後加上一段程式碼 `app.UseCampAuthentication();`  
-
-### 與原本的 ApplicationUserManager 結合
-預設 `Nebula.Web.Identity` 有內建一個 `UserManager`，會與 CAMP 做結合，取得相關的 `Profile` 資料。  
-但如果需要與專案中內建的 `ApplicationUserManager` 結合，當做一個 `ExternalLogin` 機制的話，設定 `CampAuthentication` 的時候需要加上 `useInternalUserManager: false` 的參數
+### Combined with the original ApplicationUserManager
+Default `Nebula.Web.Identity` has built a `UserManager`, CAMP do with the combination of `Profile` obtain the relevant information.  
+But if you need the project built `ApplicationUserManager` combination as a `ExternalLogin` mechanism, then, when the need to set `CampAuthentication` add `useInternalUserManager: false` parameters  
 
     app.UseCampAuthentication(useInternalUserManager: false);
 
-以下為 Startup.Auth.cs 的檔案範例：  
+The following is an example of `Startup.Auth.cs` of file:  
 
 ```csharp
 public partial class Startup
 {
     public void ConfigureAuth(IAppBuilder app)
     {
-        // 如果不使用內建的 ApplicationUserManager，請將以下的程式碼註解
+        // If you do not use the built-in ApplicationUserManager, comment the following code
         // app.CreatePerOwinContext(ApplicationDbContext.Create);
         // app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
 
@@ -183,11 +182,11 @@ public partial class Startup
 }
 ```
 
-### Cookie 相關設定
+### Cookie settings
 
-新的 Asp.Net Identity 已經不在 `web.config` 設定驗證相關的資料，如 Cookie 的設定，所以若要設定 Cookie，需要在 `App_Start/Startup.Auth.cs` 中設定  
+New Asp.Net Identity verification has not set `web.config` relevant information, such as the Cookie settings, so to set Cookie, needs to be set in the `App_Start/Startup.Auth.cs` in  
 
-以下為參考範例：
+The following reference examples:
 
 ```csharp
 app.UseCookieAuthentication(new CookieAuthenticationOptions
@@ -207,10 +206,10 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
 });
 ```
 
-## 驗證
+## Authorize
 ----------------
 
-Asp.Net Identity 仍舊支援 `AuthorizeAttribute`，在需要驗證的 `Controller`/`Action` 加上授權屬性的設定就可以  
+Asp.Net Identity still support `AuthorizeAttribute`, The need to verify the `Controller`/`Action` authorization attributes can be set  
 
 ```csharp
 public class MyController : Controller {
@@ -225,14 +224,14 @@ public class MyController : Controller {
 ```
 
 
-## 登出
+## LogOut
 ----------------
 
-新版本 One Asp.Net 專案中，登出的方式，目前採用的是 `POST` 的方式送出要求  
-所以可以到 `Views/Shared/_LogPartial.html` 去修改登出路徑  
-請將 Form Action 改成 `CampAccount/LogOff`  
+The new version of the One Asp.Net project, log out of the way, currently used is `POST` way to send request  
+So can go to `Views/Shared/_LogPartial.html` to modify logout path  
+Please Form Action into `CampAccount/LogOff`  
 
-以下為部分程式範例
+The following reference examples:  
 
 ```csharp
     @using Microsoft.AspNet.Identity
@@ -245,7 +244,7 @@ public class MyController : Controller {
 
         <ul class="nav navbar-nav navbar-right">
             <li>
-                @Html.ActionLink("你好 " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "管理" })
+                @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Admin" })
             </li>
             <li><a href="javascript:document.getElementById('logoutForm').submit()">登出</a></li>
         </ul>
@@ -254,30 +253,31 @@ public class MyController : Controller {
     else
     {
         <ul class="nav navbar-nav navbar-right">
-            <li>@Html.ActionLink("註冊", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-            <li>@Html.ActionLink("登入", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+            <li>@Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+            <li>@Html.ActionLink("Login", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
         </ul>
     }
 ```
 
-## 取得使用者相關資料
+## Get User Information
+----------------
+The following programming examples are based on the `System.Web.Mvc.Controller` paradigm. Using a Controller's User property.
+In other places, use the same `HttpContext.Current.User` can get.
 
-以下程式範例，都是以在 `System.Web.Mvc.Controller` 的範例。使用的是 Controller 的 User 屬性。  
-在其他地方，請使用 `HttpContext.Current.User` 一樣可以取得。
-### 使用者名稱、電子郵件
+### User Name, Email
 
 ```csharp
     User.Identity.GetUserName();
     User.Identity.GetEmail();
-````
+```
 
-### 取得角色資料
+### User's roles
 
 ```csharp
 	User.Identity.GetRoles();
 ```
 
-## 使用者公司代碼、公司名稱
+## User's company ID/Name
 
 ```csharp
     User.Identity.GetCompanyId();

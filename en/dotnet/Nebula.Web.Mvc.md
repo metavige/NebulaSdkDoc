@@ -2,21 +2,20 @@
 Nebula.Web.Mvc
 ================
 
-這個 Package 主要用來支援 Asp.Net MVC 2 的版本。提供了 `ControlFactory` 以及 `Route` 的實作，方便與 [Multi-Tenancy](../MultiTenancy.md) 以及 Nebula 的 [Dependency Injection](DI.md) 結合。  
+This Package is used to support Asp.Net MVC 2, which provides implementation on `ControlFactory` and `Route`, that can easily combine with [Multi-Tenancy](../MultiTenancy.md) and Nebula [Dependency Injection](DI.md) .  
 
 ## Install
 ----------------
 
     Install-Package Nebula.Web.Mvc
 
-> Note: 請勿與其他 Mvc Package (如 Nebula.Web.Mvc3) 一起安裝
+> Note: Do not install with other Mvc Package (such as Nebula.Web.Mvc3)
 
 ## Asp.Net Mvc2 Support
-----------------
 
-在 Asp.Net MVC 2 專案中要使用 Nebula SDK，請參考以下方式作程式的調整：  
+As SaaS development needs to use Nebula SDK, please change the code as the sample code below:  
 
-* 修改 Global.asax.cs  
+* Modify Global.asax.cs  
 
 ```csharp
 using System;
@@ -34,7 +33,7 @@ namespace Sample.Web
 	{
 		public static void RegisterRoutes(RouteCollection routes)
 		{
-        	// 修改 Route Mapping，用來支援 Multi-Tenancy
+        	// modify Route Mapping for support Multi-Tenancy
 			routes.MapPaaSRoute(”Default",
 			  	”{controller}/{action}/{id}",
 			 	new { controller = “Home", controller = “Home", id = UrlParameter.Optional }
@@ -44,7 +43,7 @@ namespace Sample.Web
 		{
 			RegisterRoutes(RouteTable.Routes);
 
-			// 載入 Nebula SDK 所提供的 ControllerFactory, 輕鬆的做到 Dependency Injection
+			// Loading Nebula SDK provided ControllerFactory, easy to do Dependency Injection
 			this.LoadSaaSMvcControllerFactory();
 		}
 	}

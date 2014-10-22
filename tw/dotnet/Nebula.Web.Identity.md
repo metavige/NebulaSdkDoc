@@ -9,7 +9,7 @@ Nebula.Web.Identity
     Install-Package Nebula.Web.Identity
 
 
-> Note: 請勿與 [Nebula.Web.Security](#Nebula.Web.Security) 一起安裝
+> Note: 請勿與 [Nebula.Web.Security](Nebula.Web.Security.md) 一起安裝
 
 ## 簡介
 -----------------
@@ -269,7 +269,7 @@ public class MyController : Controller {
 ```csharp
     User.Identity.GetUserName();
     User.Identity.GetEmail();
-````
+```
 
 ### 取得角色資料
 

@@ -2,10 +2,10 @@ Nebula.Data.EF6
 ================
 
 Support Entity Framework 6  
-在 NEBULA 中，所提供的 Database Resource，可以透過以下方式來存取  
-不需要自行設定連線字串，可以透過 SDK 來取得對應的資源連線字串
+In NEBULA in the provided Database Resource, can be accessed through the following ways.
+Do not need to set their own connection string, you can get through the corresponding resource connection string SDK.  
 
-## Install 
+## Install
 ----------------
 
 	Install-Package Nebula.Data.EF6
@@ -13,8 +13,8 @@ Support Entity Framework 6
 ## web.confg
 ----------------
 
-透過修改 `defaultConnectionFactory` 的方式，讓 EntityFramework 可以取得存取資料庫資源的連線字串  
-將預設的 `System.Data.Entity.Infrastructure.LocalDbConnectionFactory` 改為 `Nebula.Data.Entity.NebulaDbConnectionFactory`
+By amending the `defaultConnectionFactory` way for EntityFramework can get access database connection string resources
+The default `System.Data.Entity.Infrastructure.LocalDbConnectionFactory` to `Nebula.Data.Entity.NebulaDbConnectionFactory`  
 
 ```xml
 <entityFramework>
@@ -26,12 +26,12 @@ Support Entity Framework 6
 </entityFramework>
 ```
 
-## 使用方式
+## Usage
 ----------------
 
-在實作 DbContext 的時候，傳給 DbContext 建構子的參數，應為 Database Resource 的名稱  
-如果在本機測試，可以使用 config 的 conenctionStrings 設定  
-只需要把 connectionString 名稱設定為與 DbName 一樣就可以  
+When implemented `DbContext`, and passed `DbContext` constructor parameters should be the name of the Database Resource
+If you test the machine, you can use the config settings of `conenctionStrings`
+Simply put `connectionString` name set to the same as you can DbName
 
 ```csharp
 public class MyDbContext : DbContext {
@@ -42,7 +42,7 @@ public class MyDbContext : DbContext {
 }
 ```
 
-本地端測試, 連線字串設定範例
+Local side test, the connection string setting examples
 
 ```xml
 <configuration>
@@ -52,10 +52,10 @@ public class MyDbContext : DbContext {
 </configuration>
 ```
 
-> 本地端設定的連線字串，佈署到 NEBULA SaaS VM 之後，將使用實際 NEBULA 環境的連線字串。  
-> 除非此資料庫並非由 NEBULA 管理，而是開發者自行建立的資料庫。  
+> The local side of the connection string settings after deployment to NEBULA SaaS VM, will use the connection string actual NEBULA environment.
+> Unless this database is not managed by NEBULA, but developers build their own database.  
 
-使用 DbContext:  
+use DbContext:  
 
 ```csharp
 using (var context = new MyDbContext()) {

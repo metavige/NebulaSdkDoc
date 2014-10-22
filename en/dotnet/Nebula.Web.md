@@ -1,9 +1,9 @@
 Nebula.Web
 ================
 
-支援 Asp.Net 專案，並且提供 Asp.Net Security 相關的 Provider 支援
+Supports Asp.Net project, and provides Asp.Net Security related Provider supports.
 
-此 Package 提供了一個 [Security Module](Module.Security.md) 模組，詳細內容請參考 [Security Module](Module.Security.md) 內容說明。
+This Package provides a [Security Module] module. Please read [Security Module] for more information.
 
 ## Install
 ----------------
@@ -13,19 +13,19 @@ Nebula.Web
 ## Multi-Tenancy Support
 ----------------
 
-Asp.Net 由於沒有 Asp.Net Mvc 的 Routes 特性，故在支援 Multi-Tenancy 時，需要加入由 Nebula.Web 所提供的 `HttpHandler`，來支援 Multi-Tenancy。
-詳細的設定參考 [Multi-Tenancy](../MultiTenancy.md)
+As Asp.Net does not have the Routes feature of Asp.Net Mvc, hence you need to add `HttpHandler` provided by Nebula.Web to support Multi-Tenancy if your SaaS is Multi-Tenancy.
+Please read [Multi-Tenancy](../MultiTenancy.md) for more information
 
 ## Session Provider Support
 ----------------
 
-目前 Nebula.Web Package 中提供了兩種 Session Provider 的方式
+Nebula.Web Package currently provide  Session Provider
 
-* 以資料庫方式同步: `Quanta.PaaS.Web.Security.PaaSSessionProvider`
+* Database synchronization: `Quanta.PaaS.Web.Security.PaaSSessionProvider`
 
-Nebula SDK 提供 Session State Provider 主要目的是為了 Cloud Load Balance 機制，需要同步 Session State 所使用。若 SaaS 應用程式並不需要同步 Session 狀態，則可不需要設定。
+Nebula SDK provides Session State Provider for Cloud Load Balance technique, which needs to synchronize with Session State. If SaaS application does not need to synchronize with Session State, then the configuration is not required.
 
-設定方式範例:
+Setting example:
 ```xml
 <configuration>
 	<system.web>
@@ -38,3 +38,5 @@ Nebula SDK 提供 Session State Provider 主要目的是為了 Cloud Load Balanc
 	</system.web>
 </configuration>
 ```
+
+[Security Module]: <Module.Security.md>
