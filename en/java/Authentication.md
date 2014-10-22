@@ -1,21 +1,20 @@
-
-Nebula 登入
+Nebula Login
 ================
 
-目前 Nebula 2.0 支援的登入驗證是 [OAuth 2.0](http://oauth.net/2/)，你可以簡單的透過一些設定，使用 [CAMP](http://www.quanta-camp.com) 網站的帳號提供使用者作登入驗證  
+The current login authentication Nebula 2.0 supports is [OAuth 2.0](http://oauth.net/2/). With it and some simple settings, you can easily use [CAMP](http://www.quanta-camp.com) portal accounts to provide user login authentication.
 
-登入驗證
+## Login Authentication
 ----------------
 
-如果需要與 [CAMP](http://www.quanta-camp.com) 網站登入帳號結合，可透過以下方式作設定  
-這裡提供 [Spring security OAuth2](http://projects.spring.io/spring-security-oauth/docs/Home.html) 與 [Scribe-java](https://github.com/fernandezpablo85/scribe-java) 兩個 framework 範例  
+If you want to integrate with [CAMP](http://www.quanta-camp.com) portal login accounts,  you can use the following steps to setup.
+Here are two seperate framework examples to use [Spring security OAuth2](http://projects.spring.io/spring-security-oauth/docs/Home.html) and [Scribe-java](https://github.com/fernandezpablo85/scribe-java).
 
 Spring Security OAuth2
 ----------------
 
-以下的設定為參考範例。
+Below is an example:
 
-需於spring-config.xml寫入以下設定
+spring-config.xml is required in the following setting
 
 ```xml
 <http auto-config="true" xmlns="http://www.springframework.org/schema/security">
@@ -52,7 +51,7 @@ Spring Security OAuth2
 </bean>
 ```
 
-為避免進入spring-security的認證頁面, 需改寫 `isClientOnly` 屬性, 範例如下  
+The following example is to avoid entering spring-security authentication page; this requires to modify the `isClientOnly` property.
 
 ExtendedBaseOAuth2ProtectedResourceDetails.java  
 
@@ -66,27 +65,27 @@ public class ExtendedBaseOAuth2ProtectedResourceDetails extends AuthorizationCod
 }
 ```
 
-### 參考
+### Reference
 
-- [Spring Security OAuth](http://docs.spring.io/spring-security/oauth/) 文件首頁
+- [Spring Security OAuth](http://docs.spring.io/spring-security/oauth/) document homepage
 - [Github](https://github.com/spring-projects/spring-security-oauth)
 
 Scribe-java
 ----------------
 
-先透過Authorize url取得code
+Obtain the code through Authorize url
 
 ```html
-<a href="http://www.quanta-camp.com/OpenId/OAuth/Authorize?client_id=＊&redirect_uri=http%3A%2F%2Flocalhost%3A8090%2Fquantacallback.jsp&response_type=code&scope=http%3A%2F%2Fwww.quanta-camp.com%2FOpenId%2FProfile%2FUserIdentity&state=cLzMFn">以Quanta 帳戶登入</a>
+<a href="http://www.quanta-camp.com/OpenId/OAuth/Authorize?client_id=＊&redirect_uri=http%3A%2F%2Flocalhost%3A8090%2Fquantacallback.jsp&response_type=code&scope=http%3A%2F%2Fwww.quanta-camp.com%2FOpenId%2FProfile%2FUserIdentity&state=cLzMFn">Login with Quanta account</a>
 ```
 
-登入驗證並取得resource
+Login authication and obtain the resource
 ```java
 String _sCode = request.getParameter("code");
 
 Verifier verifier = new Verifier(_sCode);
-String apiKey = "**請填入 ProductId **";
-String apiSecret = "** 請填入 AuthorityCode **";
+String apiKey = "** Please fill in ProductId **";
+String apiSecret = "** Please fill in AuthorityCode **";
 String redirect_uri = "http://localhost:8090/quantacallback.jsp";
 
 OAuthService service = new ServiceBuilder()
@@ -107,12 +106,12 @@ Response resp = req.send();
 String _sBody = resp.getBody();
 ```
 
-QuantaApi20 範例
+QuantaApi20 Sample
 
 ```java
 public class QuantaApi20 extends DefaultApi20 {
 
-	// TODO: 建議 state 參數傳遞 Session Id, 避免各 User 取到的 Access Token 發生衝突
+	// TODO: Recommendations state parameter passing Session Id, User taken to avoid all conflicts of Access Token
 	private static final String QUANTA_CAMP_OAUTH_PROVIDER_HOST = "http://www.quanta-camp.com/OpenId";
 	private static final String AUTHORIZE_URL = QUANTA_CAMP_OAUTH_PROVIDER_HOST + "/OAuth/Authorize?response_type=code&client_id=%s&redirect_uri=%s&scope=%s&state=cLzMFn";
 
@@ -239,6 +238,6 @@ public class QuantaApi20 extends DefaultApi20 {
 }
 ```
 
-### 參考
+### Reference
 
 - [Github](https://github.com/fernandezpablo85/scribe-java)

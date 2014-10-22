@@ -15,8 +15,8 @@ If you want to integrate with [CAMP](http://www.quanta-camp.com) portal login ac
 ## Nebula SDK
 ----------------
 
-In Nebula SDK, for Asp.Net Mvc 2/3/4, there is provided a [Nebula.Web.Security](dotnet/Nebula.Security.md) of Nuget Package.  
-For Asp.Net Mvc5, there is provided a [Nebula.Web.Identity](#dotnet/Nebula.Web.Identity.md) of Nuget Package.  
+In Nebula SDK, for Asp.Net Mvc 2/3/4, there is provided a [Nebula.Web.Security](Nebula.Security.md) of Nuget Package.  
+For Asp.Net Mvc5, there is provided a [Nebula.Web.Identity](Nebula.Web.Identity.md) of Nuget Package.  
 After installation, you can simple to do integration with [CAMP](http://www.quanta-camp.com) Account
 
 ## Using Web Service
@@ -61,7 +61,7 @@ The following is an overview of the process of abstraction, to compare the macro
                 Figure 1: Abstract Protocol Flow
 ```
 
-### Process implementation 
+### Process implementation
 
 -----
 ####  1. User login and authorization (Authorization Code Flow)
@@ -79,7 +79,7 @@ The following URL is a relative URL https://www.quanta-camp.com/OpenId/
 ##### Parameter
 
 Parameter Name | Necessary/Optional | Content Value Meaning
- --- | --- | --- 
+ --- | --- | ---
  client_id | Necessary | Product ID <br/> Please apply for a CAMP products, obtain product code and verification code.
 redirect_uri | Necessary | After logon authentication, HTTP 302 redirect back to the SaaS website.
 response_type | Necessary | 'code'
@@ -93,8 +93,8 @@ Code Sample：
 http://localhost/?code=Q8TJ%21IAAAAE9k7bl81oIIlqLW5wxZ3pcYHUziL86uB6NKizoCGKscIQEAAAEcjOnigP_pqgfWrUe2d8sug6tK_pmKVVs4x8xIQfsB-6Pw8uy5nuB_XYoQqiC3Fex7wmOo0qufNlQIZKTL8KmyAXNQFbTP4Dqun-Jsgy481yN1Yvkyb6bn1-49KScZ0T0Ycs8k_iZ15A9M1LscgIPrsqw3wbqbLvX_THg_d2OytF3INGTV5Df8wd_HpR27-MIuf7FR0cPBMaXsb8JTMkgzbGYH2uNc0KqXOwK6bo7F0GjzXZDujB4J7_6MHYFnV5IgQxLG0gPmI3ieiNEqA75E2WBVhX0mF9FH_im3JWfDrO1DUczmlufZqQcTOUzgBbl9viE75KgAn3YJIynCMQLLY9NAosxXhTh-Ue26GcaWl7OnbOMGkvk8ZQ5rk1X1VCE&state=abc
 ```
 
-Parameter Name | Meaning 
- --- | --- 
+Parameter Name | Meaning
+ --- | ---
 code | Authorization Code
 state | State value. Service will return the parameters passed state data.
 
@@ -113,15 +113,15 @@ HTTP BASIC authentication, account for the **productId**, password for **Authori
 
 ##### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Content-Type | application/x-www-form-urlencoded
 Accept | application/json
 
 ##### Parameter
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 code | Please pass the previous step to obtain the Authorization Code.
 redirect_uri | Please enter the same URI with the first step.
 state | Please enter the same state with the first step.
@@ -140,8 +140,8 @@ HTTP 200 - OK
 }
 ```
 
-Parameter Name | Meaning 
- --- | --- 
+Parameter Name | Meaning
+ --- | ---
 access_token | Access Token. Resource access the necessary parameters<br/>save yourself.
 token_type | 'bearer'
 expires_in |  Token Effective time, unit: seconds.
@@ -151,20 +151,20 @@ scope | The first step requires the return of the original scope data
 -----
 ####  3. Access to resources
 
-In CAMP, we offer the following three Resource 
+In CAMP, we offer the following three Resource
 
 Ways to access resources through System.Net.WebRequest or any HTTP Client calls.  
 
 -----
 ##### User login account
 
-###### URI 
+###### URI
 **GET Profile/UserIdentity**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -178,13 +178,13 @@ HTTP 200 - OK
 -----
 ##### User Information
 
-###### URI 
+###### URI
 **GET Profile/UserInfo**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -198,17 +198,17 @@ HTTP 200 - OK
     "CompanyId": "company code"
 }
 ```
-  
+
 -----
 ##### Company information
 
-###### URI 
+###### URI
 **GET Profile/CompanyInfo**  
 
 ###### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 Authorization | 'Bearer ' + Access Token
 
 ###### RESPONSE
@@ -235,8 +235,8 @@ HTTP BASIC authentication, account for the **productId**, password for **Authori
 
 ##### Header
 
-Name | Value 
- --- | --- 
+Name | Value
+ --- | ---
 code | Please pass Step 2 obtained Refresh Token.
 grant_type | 'refresh_token'
 
@@ -253,8 +253,8 @@ HTTP 200 - OK
 }
 ```
 
-Parameter Name | Meaning 
- --- | --- 
+Parameter Name | Meaning
+ --- | ---
 access_token | Access Token. Resource access the necessary parameters<br/>save yourself.
 token_type | 'bearer'
 expires_in |  Token Effective time, unit: seconds.

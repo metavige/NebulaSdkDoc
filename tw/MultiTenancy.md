@@ -2,7 +2,7 @@
 Multi-Tenancy
 ================
 
-Nebula CloudPlatform 支援 [多租戶 (Multi-Tenancy)](http://en.wikipedia.org/wiki/Multitenancy) 的程式開發，透過傳遞給程式一組 `TenancyId` ，Nebula SDK 會將該使用者所使用到的 Solution Id 取回，在 `AppContext` 中提供給各產品的程式中使用。
+Nebula CloudPlatform 支援 [多租戶 (Multi-Tenancy)](http://www.wikiwand.com/zh/多租戶技術) 的程式開發，透過傳遞給程式一組 `TenancyId` ，Nebula SDK 會將該使用者所使用到的 Solution Id 取回，在 `AppContext` 中提供給各產品的程式中使用。
 
 透過在 [開發者專區](http://www.quanta-camp.com/Developer/) 啟用產品的多租戶功能，便可在程式中使用  
 
