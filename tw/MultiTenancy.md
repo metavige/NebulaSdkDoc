@@ -14,7 +14,7 @@ Nebula CloudPlatform 支援 [多租戶 (Multi-Tenancy)](http://en.wikipedia.org/
 
 啟用多租戶功能之後，由 [開發者專區](http://www.quanta-camp.com/Developer/) 中的開發測試/模擬測試功能，或由 [會員中心](https://member.quanta-camp.com) 進入 SaaS 應用程式，系統都會動態在網址上加入一組動態的 `TenancyId`，SaaS 應用程式中便可以透過 Nebula SDK 來取得該使用者所屬的 Solution Id。  
 
-  
+
 
 根據不同的專案類型，專案中若要支援 Multi-Tenancy，請參考以下的設定與程式：  
 
@@ -28,7 +28,7 @@ Nebula CloudPlatform 支援 [多租戶 (Multi-Tenancy)](http://en.wikipedia.org/
     * [Nebula.Web.Mvc3](dotnet/Nebula.Web.Mvc3.md)  (Support Asp.Net Mvc 3)
     * [Nebula.Web.Mvc4](dotnet/Nebula.Web.Mvc4.md)  (Support Asp.Net Mvc 4)
     * [Nebula.Web.Mvc5](dotnet/Nebula.Web.Mvc5.md)  (Support Asp.Net Mvc 5)  
-* 修改 `App_Start/RouteConfig.asax.cs` 中的 Route 設定。Nebula SDK 提供了一組 MapPaaSRoute 的 Route Collection Extension 方法，這樣開發者在本機使用 Visual Studio 開發的時候，因為無法產生 TenancyId，仍舊可以測試。  
+* 修改 `App_Start/RouteConfig.asax.cs` 中的 `Route` 設定。Nebula SDK 提供了一組 `MapPaaSRoute` 的 Route Collection Extension 方法，這樣開發者在本機使用 Visual Studio 開發的時候，因為無法產生 TenancyId，仍舊可以測試。  
 
 
 ```csharp
@@ -54,10 +54,10 @@ config.Routes.MapPaaSHttpRoute(
 ## Asp.Net
 ----------------
 
-在 Asp.Net 中，需要透過 HttpHandler 來取得 TenancyId。  
+在 Asp.Net 中，需要透過 `HttpHandler` 來取得 TenancyId。  
 
 * 加入 [Nebula.Web](dotnet/Nebula.Web.md) Package
-* 加入以下設定，並且在應用程式設定中選擇 Asp.Net 的類型，Nebula CloudPlatform 所提供的連結，將會以 /Startup 為應用程式的入口，提供 TenancyId。
+* 加入以下設定，並且在應用程式設定中選擇 Asp.Net 的類型，Nebula CloudPlatform 所提供的連結，將會以 `/Startup` 為應用程式的入口，提供 TenancyId。
 
 ```xml
 <configuration>

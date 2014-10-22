@@ -56,8 +56,7 @@
   * [Database Module](java/Module.Database.md)
   * [Dfs Module](java/Module.Dfs.md)
   * [Mail Module](java/Module.Mail.md)
-  * [Logging Module](java/Module.Logging.md)
-  * [Schedule Module](java/Module.Schedule.md)
+  * [Log Module](java/Module.Logging.md)
 
 [Language]()
 

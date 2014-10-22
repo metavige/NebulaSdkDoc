@@ -1,29 +1,32 @@
 Quick Start
 ================
 
-透過簡單的說明，讓開發者快速建立JAVA project
+透過簡單的說明，讓開發者快速建立 Java Project
 
 ## 系統需求
 ----------------
 
-* JAVA JDK 6以上
-* Nebula SDK(目前版本為2.3.0.0)
+* JAVA JDK 6 以上
+* Nebula SDK (目前版本為2.3.0.0)
 
 ## 專案建立步驟
 ----------------
 
-以下說明開發工具以Eclipse為例
+以下說明開發工具以 Eclipse 為例  
 
 ### 建立新專案
 
-開啟Eclipse, 選擇New->Dynamic Web Project
-![QuickStart1](../../images/QuickStart01.png)
-![QuickStart1](../../images/QuickStart02.png)
-![QuickStart1](../../images/QuickStart03.png)
+開啟 Eclipse, 選擇 New->Dynamic Web Project  
+
+![QuickStart1](../../images/javaImages/QuickStart01.png)  
+
+![QuickStart2](../../images/javaImages/QuickStart02.png)  
+
+![QuickStart3](../../images/javaImages/QuickStart03.png)  
 
 ### 將jar檔至於WEB-INF/lib
 
-Jar擋如下列所示
+Jar 擋如下列所示
 
 * nebula.core.jar
 * nebula.module.jar
