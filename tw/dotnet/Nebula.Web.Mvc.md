@@ -9,6 +9,8 @@ Nebula.Web.Mvc
 
     Install-Package Nebula.Web.Mvc
 
+> Note: 請勿與其他 Mvc Package (如 Nebula.Web.Mvc3) 一起安裝
+
 ## Asp.Net Mvc2 Support
 ----------------
 

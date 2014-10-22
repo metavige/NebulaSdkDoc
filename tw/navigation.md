@@ -50,7 +50,6 @@
   * [Office Module](dotnet/Module.Office.md)
   * [Security Module](dotnet/Module.Security.md)
   * [Management Module](dotnet/Module.Management.md)
-  * [Schedule Module](dotnet/Module.Schedule.md)
   * [Solution Module](dotnet/Module.Solution.md)
   - - - -
   * # Java
@@ -62,5 +61,5 @@
 
 [語系]()
 
-  * [繁體中文](../tw)
-  * [English](../en)
+  * [繁體中文](../tw/)
+  * [English](../en/)

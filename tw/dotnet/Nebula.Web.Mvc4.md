@@ -9,6 +9,8 @@ Asp.Net MVC 3.0 之後，有針對 IoC 機制提供了一個 `DependencyResolver
 
     Install-Package Nebula.Web.Mvc4
 
+> Note: 請勿與其他 Mvc Package (如 Nebula.Web.Mvc3) 一起安裝
+
 ## WebActivator
 ----------------
 
