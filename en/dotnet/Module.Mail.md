@@ -1,12 +1,12 @@
 Mail Module
 ================
 
-Mail Module 提供使用者寄發 E-mail 的功能，使用者可以透過此 module 將郵件資訊傳送給 Nebula，Nebula Platform 將會定期執行發信動作。  
+Mail Module provides user a method to send E-mail. User sends necessary mail information to Nebula through this module, and Nebula Platform would routinely perform to send E-mails.
 
 ## SendMail
 ----------------
 
-Mail Module 目前提供 `SendMailJob` 方法來寄送
+Mail Module provides `SendMail` method  
 
 ```csharp
 using Quanta.PaaS.Module.Mail;
@@ -38,7 +38,7 @@ public void SendMailJob()
 
 ```
 
-目前 `MailContext` 與 `MailData` 可使用的屬性，以程式方式說明：
+The usable properties of `MailContext` and `MailData` can be described by the code below:
 
 ```csharp
 namespace Quanta.PaaS.Module.Kernel.Contract.Mail
@@ -46,73 +46,73 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Mail
     public class MailContext
     {
         /// <summary>
-        /// 郵件內容。
+        /// Mail content
         /// </summary>
         public MailData MailData { get; }
 
         /// <summary>
-        /// 附件清單。
+        /// Attachment list
         /// </summary>
         public IList<MailAttach> Attachments { get; set; }
     }
 
     /// <summary>
-    /// 郵件內容資料。
+    /// Mail content information
     /// </summary>
     public class MailData
     {
         /// <summary>
-        /// 郵件發送者地址。
+        /// Sender's E-mail address
         /// </summary>
         public string MailFrom { get; set; }
 
         /// <summary>
-        /// 郵件發送者顯示名稱
+        /// Sender's display name
         /// </summary>
         public string MailFromName { get; set; }
 
         /// <summary>
-        /// 郵件寄送地址。
+        /// Receipent E-mails
         /// </summary>
         public string MailTo { get; set; }
 
         /// <summary>
-        /// 副本。
+        /// Mail CC
         /// </summary>
         public string MailCc { get; set; }
 
         /// <summary>
-        /// 密件副本。
+        /// Hidden Mail CC
         /// </summary>
         public string MailBcc { get; set; }
 
         /// <summary>
-        /// 郵件主旨。
+        /// Mail Subject
         /// </summary>
         public string MailSubject { get; set; }
 
         /// <summary>
-        /// 郵件內容
+        /// Mail Content
         /// </summary>
         public string MailBody { get; set; }
 
         /// <summary>
-        /// 附件資訊。
+        /// Attachment
         /// </summary>
         public string Attachments { get; set; }
 
         /// <summary>
-        /// 是否為產品。
+        /// Whetever it is Production
         /// </summary>
         public string IsProduction { get; set; }
 
         /// <summary>
-        /// 郵件類型
+        /// Mail Type
         /// </summary>
         public string MailType { get; set; }
 
         /// <summary>
-        /// 備註。
+        /// Remark
         /// </summary>
         public string Remark { get; set; }
     }
@@ -124,9 +124,9 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Mail
 ## Attachment
 ----------------
 
-若郵件需要附帶檔案，需要透過 `Quanta.PaaS.Module.Mail.MailAttach` 物件，將要上傳的檔案轉換成 byte[] ，並將檔案名稱與 byte[] 內容放入 `MailAttach` 物件中。  
+If an E-mail needs to have attach a file, it can use `Quanta.PaaS.Module.Mail.MailAttach` object; which change the file content to byte[] and save its filename and byte[] to `MailAttach` object.
 
-範例程式：
+Sample code：
 
 ```csharp
 using System.IO;
@@ -146,7 +146,7 @@ MailContext mailContext = new MailContext();
 mailContext.Attachments.Add(objMailAttachData);
 ```
 
-`Quanta.PaaS.Mail.MailAttach` 的屬性，以程式方式說明:
+`Quanta.PaaS.Mail.MailAttach` properties can be described by the code below:
 
 ```csharp
 namespace Quanta.PaaS.Module.Kernel.Contract.Mail
@@ -154,12 +154,12 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Mail
     public class MailAttach
     {
         /// <summary>
-        /// 附件檔案名稱。
+        /// Attachment filename
         /// </summary>
         public string AttachFileName { get; set; }
 
         /// <summary>
-        /// 附件檔案內容。
+        /// Attachment content
         /// </summary>
         public byte[] AttachFile { get; set; }
     }

@@ -1,14 +1,14 @@
 Solution Module
 =================
 
-此模組，提供給開發者針對 Solution 處理的一些共用方法。
+This module provide developer some common management functions on Solution.  
 
-## 取得購買產品的公司資料
+## Get company's data which purchases this SaaS Product
 -----------------
 
-開發者若需要取得購買此產品的公司資料，可透過 `GetCompanyInfos` 這個方法來取得：
+Developer can use `GetCompanyInfos` method to get the data of all companys which purchases this SaaS Product.
 
-介面說明：
+Interface descriptions:  
 
 ```csharp
 namespace Quanta.PaaS.Module.Solution
@@ -16,30 +16,30 @@ namespace Quanta.PaaS.Module.Solution
 	public interface ISolutionModule
 	{
 	    /// <summary>
-	    /// 取得目前產品所關聯的公司代碼與名稱資料。
+	    /// Get the Product's currently related companys' IDs and names.
 	    /// </summary>
 	    /// <returns></returns>
 	    IEnumerable<Company> GetCompanyInfos();
 	}
 
 	/// <summary>
-	/// 公司代碼與名稱資料。
+	/// Data of Company ID and name.
 	/// </summary>
 	public class Company
 	{
 	    /// <summary>
-	    /// 公司代碼
+	    /// Company ID.
 	    /// </summary>
 	    public string Id { get; }
 	    /// <summary>
-	    /// 公司名稱。
+	    /// Company name.
 	    /// </summary>
 	    public string Name { get; }
 	}
 }
 ```
 
-使用範例：
+Sample Code:  
 
 ```csharp
 using System;

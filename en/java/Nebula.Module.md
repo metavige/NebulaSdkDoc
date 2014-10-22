@@ -1,9 +1,9 @@
 Nebula.Module
 ================
 
-Nebula.Module 是整個 Nebula SDK 的核心模組，所有的 Nebula 基本功能模組都包含在這裡
+Nebula.Module is the core module of the entire Nebula SDK; all Nebula fundamental features are contained here.  
 
-模組列表
+Module List
 
 * Database Module
 * Mail Module
@@ -13,11 +13,11 @@ Nebula.Module 是整個 Nebula SDK 的核心模組，所有的 Nebula 基本功�
 ## AppContext
 ----------------
 
-`com.quanta.nebula.AppContext` 這個物件，為 Nebula SDK 的主體 ，所有的 Module 或與一些與 SaaS 相關的屬性值，都透過此物件取得。
+`com.quanta.nebula.AppContext` object is the main body of Nebula SDK. All Modules or some properties related to SaaS are obtained from this object.
 
-### 常用屬性說明
+### Common Property Instructions
 
-* 取得目前環境的 `AppContext`
+* Obtain the current `AppContext`
 
 ```java
 AppContextFactory appContextFactory = new AppContextFactoryImpl();
@@ -28,7 +28,7 @@ SolutionContext sc = appContext.getSolutionContext();
 
 * ProductId
 
-	取得此 SaaS 應用程式在 `nebula.properties` 中設定的產品代碼
+	Obtain the SaaS Product ID in `nebula.properties`
 
 ```java
 string productId = appContext.getSolutionContext().getProductId();
@@ -36,17 +36,17 @@ string productId = appContext.getSolutionContext().getProductId();
 
 * ApplicationId
 
-	取得此 SaaS 應用程式在 `nebula.properties` 設定的應用程式代碼
+	Obtain the SaaS Application ID in `nebula.properties`
 
 ```java
 string applicationId = appContext.getSolutionContext().getApplicationId();
 ```
 
-### 常用方法說明
+### Common Function Instructions
 
 * GetModule&lt;IModuleInterface&gt;
 
-	目前 Nebula Module 的取得，都需要透過這個方法來取得實體物件
+	Object entities can only be obtained through this Nebula Module method
 
 ```java
 IModuleInterface moduleInterface = appContext.getModule(IModuleInterface.class);

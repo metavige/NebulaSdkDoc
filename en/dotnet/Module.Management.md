@@ -1,11 +1,12 @@
 Management Module
 ================
 
-提供開發人員取得郵件寄發結果記錄、排程執行結果記錄以及錯誤訊息記錄。開發人員可以透過此模組，取得產品運作時相關歷史記錄。
-透過查詢時間以及筆數的設定取得相對應結果。  
-> 為避免使用者查詢大量資料，導致效能問題，目前查詢筆數上限為200筆。
+Developer can use it to get logs of E-mail delivery, schedule execution result, and error. Developer can use this module to get necessary log data of a Product's operations.  
 
-## 取得 Module 方式
+It is queried by time and setting of number of rows to get the corresponding results.
+> The maximum query result rows are 200, for preventing user query for large amount of data which would affect the performance efficiency.
+
+## Obtain Module
 ----------------
 
 ```csharp
@@ -14,29 +15,29 @@ using Quanta.PaaS.Module.Management;
 IManageModule manageModule = AppContext.Current.GetModule<IManageModule>();
 ```
 
-## 功能簡述
+## Function descriptions
 ----------------
 
-目前 Management Module 提供三個功能
+Management Module provides three functions
 
-* 取得郵件寄發結果記錄 - `SearchMailStatus`
-* 取得排程執行結果記錄 - `SearchScheduleExecuteHistory`
-* 取得 SaaS 應用程式錯誤歷史紀錄 - `SearchErrorLogHistory`
+* Search for mail delivery result - `SearchMailStatus`
+* Search for schedle execution result - `SearchScheduleExecuteHistory`
+* Search for SaaS error log history - `SearchErrorLogHistory`
 
-以上三個方法都是傳遞相同的參數，參數說明如下：
+All three methods above use same inputs. The inputs are described as the followings:
 
-* int recCount : 查詢筆數，最大不可超過 200。如果超過 200，將拋出 `ArgumentException`。
-* DateTime queryStart : 查詢區間開始時間
-* DateTime queryEnd : 查詢區間結束時間
+* int recCount : Result number, which cannot be over 200. ArgumentException would be thrown if it is over 200.
+* DateTime queryStart : Query start time
+* DateTime queryEnd : Query end time
 
-如果根據查詢日期區間，所查詢出來的資料大於 200 筆，回傳的結果將只會回傳前 200 筆，以 Log 日期作降冪排序。
+If the returned number of results is over 200, the system would return only the first 200 rows by descending Log datetime.  
 
-## 回傳資料說明
+## Returned data descriptions
 ----------------
 
-以下列出各查詢記錄方法所回傳的資料物件，以程式方式說明物件的屬性內容：
+The followings display return data types of each query; the object properties are described by the sample codes below.
 
-* 郵件寄發記錄:
+* Mail delivery log:  
 
 ```csharp
 namespace Quanta.PaaS.Module.Kernel.Contract.Management
@@ -64,7 +65,7 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Management
 }
 ```
 
-* 排程執行結果記錄 :
+* Schedule execution result log:  
 
 ```csharp
 namespace Quanta.PaaS.Module.Kernel.Contract.Management
@@ -102,7 +103,7 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Management
 }
 ```
 
-*  SaaS 應用程式錯誤歷史紀錄:
+* SaaS application error log:  
 
 ```csharp
 namespace Quanta.PaaS.Module.Kernel.Contract.Management
@@ -135,7 +136,7 @@ namespace Quanta.PaaS.Module.Kernel.Contract.Management
 }
 ```
 
-## 使用範例
+## Examples
 -----------------
 
 ```csharp

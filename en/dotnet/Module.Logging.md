@@ -1,17 +1,21 @@
 Logging Module
 ================
 
-Logging Module 提供使用者記錄與查詢 Error Log 以及 Transaction Log 的功能  
-Error Logging 與 Transaction Log 資料將會記錄在 Nebula CloudPlatform 的資料庫中。
-目前使用者可以透過 [Quanta CAMP 網站](http://www.quanta-camp.com/) 上 [開發者專區](http://www.quanta-camp.com/Developer/) 的紀錄查詢功能來查詢 Log 紀錄，亦可透過 Logging Module 的使用規範在開發程式過程中取出 Log 資料。  
-若需要使用 Logging Module 功能，請依照以下步驟說明進行操作  
+Logging Module offers user to log and query for Error Log and Transaction Log
 
-## TransactionLog 查詢
-----------------
+Error Logging and Transaction Log data are saved in Nebula CloudPlatform database.
 
-開發者需要先參考 [Database Module](Module.Database.md) 中，Transaction Log 記錄的程式修改方式，才可透過 Logging Module 取出異動記錄。
+User can use the Log Query in the [Quanta CAMP portal](http://www.quanta-camp.com/) [Developer Area](http://www.quanta-camp.com/Developer/) to search for Log records, or use Logging Module to get Log data.
 
-程式範例說明:
+If you want to use the Logging Module, please follow the instructions below
+
+
+## TransactionLog Query
+-----------------
+
+Developer must reference [Database Module](Module.Database.md)
+
+Sample code:
 
 ```csharp
 using Quanta.PaaS.Module.Logging;
@@ -19,20 +23,20 @@ using Quanta.PaaS.Module.Logging;
 IList<LoggingTransactionContext> transLogs = LoggingModule.GetTransactionLog("Y", functionId: "SaveTransactionLog");
 ```
 
-第一個參數是表示所要查詢的資料是否為正式環境，為必要參數，其餘參數可傳可不傳，傳遞參數時除了第一個必要參數之外，其餘均須具名指定傳入參數為何
+The first variable determines whetever the queried data is of Product environment, and it is a mandatory field. Other variables are optional and can be null.
 
-以下是 `LoggingTransactionContext` 結果物件的介面說明：
+The following is `LoggingTransactionContext` result object interface description：
 
 ```csharp
 public class TransactionLogContext
 {
 	/// <summary>
-	/// 是否為正式環境
+	/// Whetever it is Production environment
 	/// </summary>
 	public string IsProduction { get; set; }
 
 	/// <summary>
-	/// SQL 語法
+	/// SQL command
 	/// </summary>
 	public string SqlComand { get; set; }
 
@@ -77,12 +81,12 @@ public class TransactionLogContext
 	public int RemarkInt4 { get; set; }
 
 	/// <summary>
-	/// 紀錄 Client 端的 ThreadId
+	/// Log the ThreadId on Client side
 	/// </summary>
 	public int ThreadId { get; set; }
 
 	/// <summary>
-	/// Property 的資料異動資訊
+	/// Value transaction information of the Property
 	/// </summary>
 	public IList<TransactionLogProperty> Property { get; set; }
 }
@@ -90,28 +94,28 @@ public class TransactionLogContext
 public class TransactionLogProperty
 {
 	/// <summary>
-	/// 功能代碼
+	/// Function ID
 	/// </summary>
 	public string FunctionId { get; set; }
 
 	/// <summary>
-	/// 屬性名稱
+	/// Property Name
 	/// </summary>
 	public string PropertyName { get; set; }
 
 	/// <summary>
-	/// 變更前的舊資料
+	/// Old value data prior change
 	/// </summary>
 	public object OldValue { get; set; }
 
 	/// <summary>
-	/// 變更後的新資料
+	/// New value data after change
 	/// </summary>
 	public object NewValue { get; set; }
 }
 ```
 
 ## Error Log
-----------------
+---------------
 
-目前 [Management Module](Module.Management.md) 有提供錯誤訊息的查詢，建議採用該方法查詢。
+[Management Module](Module.Management.md) can query for error message. It is strongly recommended to use this method to query.

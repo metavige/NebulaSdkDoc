@@ -1,22 +1,22 @@
 Database Module
 ==================
 
-Database Module 提供 SaaS 針對資料庫中的 Table 的基本操作，在 SaaS 開發中若要使用 Database Module 的相關功能，需先設定 JNDI。
+Database Module provides SaaS basic controls on database tables. You must configure JNDI first when you want to use Database Module functions during SaaS development.  
 
-## JNDI設定方式
+## JNDI Configuration
 -----------------
 
-* 正式環境
-無需設定，建立VM時會自動設定  
+* Production Environment
+No configuration required; it will be automatically configured during VM creation.  
 
-* 測試環境
-透過 `nebula.properties` 設定，參數如下，至少需設定一個，若兩個都有設定以 `cloudplatform.jndi` 為主  
+* Testing Environments
 
-	* `cloudplatform.jndi`: 使用 context.xml 中 JNDI 設定
-	* `cloudplatform.jdbc.url`, `cloudplatform.jdbc.driver`: 使用JDBC連線, 此為一組, 必須同時設定
+The followings are the variables in `nebula.properties` configuration; and you must configure at least one of them. If both are configured then it will be based on `cloudplatform.jndi`
 
+	* `cloudplatform.jndi`: Use JNDI configuration in context.xml
+	* `cloudplatform.jdbc.url`, `cloudplatform.jdbc.driver`: For using JDBC connection; both variables must be configured.
 
-`nebula.properties` 範例:  
+`nebula.properties` examples:
 
 ```
 # Define JDBC URL
@@ -25,12 +25,12 @@ cloudplatform.jdbc.url=jdbc:sqlserver://192.168.0.111:1433;databasename=***;user
 cloudplatform.jndi=java:/comp/env/jdbc/resource_name
 ```
 
-## 實作方式
+## Implementation
 ------------------
 
-透過 DBModule 輸入 resource name 取得 datasource，再進一步取得 connection
+Obtain datasource by entering resource name through DBModule, to obtain a connection
 
-### 直接撰寫
+### Code directly
 
 ```java
 AppContext appContext = WebAppContext.getCurrentAppContext();
@@ -42,7 +42,7 @@ Connection conn = ds.getConnection();
 ```
 
 
-以下範例是使用 Spring Framework  
+The following example is using the Spring Framework:   
 
 ------------------
 ### web project

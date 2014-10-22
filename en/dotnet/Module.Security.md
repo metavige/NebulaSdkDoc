@@ -2,87 +2,87 @@
 Security Module
 =================
 
-這個 Module 目前在 [Nebula.Web](Nebula.Web.md) package 中。  
+This Module is currently in the [Nebula.Web](Nebula.Web.md) package.  
 
-## 取得使用者有權限的功能清單資料
+## Get a list of functions which user has privilege to use.
 -----------------
 
 ```csharp
 IList<FuncContext> GetFuncList(string[] roleIds, string language);
 ```
 
-若要使用這個功能，需要先利用 [開發者專區](http://www.quanta-camp.com/Developer/) 中的 系統設定 -> 權限設定 等相關功能，設定好系統的相關功能與權限關係，並且透過 [CAMP](http://www.quanta-camp.com/) 中設定每個使用者的角色，便可透過此功能取得登入使用者所可使用的功能清單。  
+If you want to use this function, you need to use the AP Setting -> Function Setting in the [Developer Area](http://www.quanta-camp.com/Developer/), and set every user role in [CAMP](http://www.quanta-camp.com/). Therefore through this function, you can obtain a list of functions you can use when log in.  
 
-使用範例說明:
+Sample code:  
 
 ```csharp
 using Quanta.PaaS.Web.Security;
 
-// 先取得 Module Instance
+// First obtain Module Instance
 ISecurityModule securityModule = AppContext.Current.GetModule<ISecurityModule>();
 
 string[] roleIds = System.Web.Security.Roles.GetRolesForUser();
 IList<FuncContext> allFuncList = securityModule.GetFuncList(roleIds, "zh-TW");
 ```
 
-取出的 `FuncContext` 物件屬性，以程式方式說明：
+Get `FuncContext` object properties; they are described in the sample code below:  
 
 ```csharp
 namespace Quanta.PaaS.Web.Security
 {
     /// <summary>
-    /// Function List 的傳遞參數資料。
+    /// Function List variable data。
     /// </summary>
 	public class FuncContext
 	{
 		/// <summary>
-        /// 功能 Id。
+        /// function ID。
 		/// </summary>
 		public string FunctionId { get; set; }
 
 		/// <summary>
-        /// 父群組的群組序號。
+        /// parent group ID.
 		/// </summary>
 		public string ParentGroup { get; set; }
 
 		/// <summary>
-        /// 功能順序。
+        /// function sequential order.
 		/// </summary>
 		public string OrderBy { get; set; }
 
 		/// <summary>
-        /// 是否需身份驗證。
+        /// whetever requires ID authentication.
 		/// </summary>
 		public string Authorized { get; set; }
 
 		/// <summary>
-        /// 功能的 Link Url。
+        /// Link Link URL of function.
 		/// </summary>
 		public string LinkUrl { get; set; }
 
 		/// <summary>
-        /// 功能類型。
+        /// function type
 		/// </summary>
         /// <remarks>G = Group, F = Function。</remarks>
 		public string Type { get; set; }
 
 		/// <summary>
-        /// 是否清單中顯示。
+        /// whetever to display the list.
 		/// </summary>
 		public string Visible { get; set; }
 
 		/// <summary>
-        /// 是否控制 Action。
+        /// whetever control action.
 		/// </summary>
 		public string ActionControl { get; set; }
 
 		/// <summary>
-        /// 功能名稱。
+        /// function name.
 		/// </summary>
 		public string Name { get; set; }
 
 		/// <summary>
-        /// 功能描述。
+        /// function description.
 		/// </summary>
 		public string Description { get; set; }
     }

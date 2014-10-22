@@ -1,12 +1,12 @@
 Mail Module
 ================
 
-Mail Module 提供使用者寄發 E-mail 的功能，使用者可以透過此 module 將郵件資訊傳送給 Nebula，Nebula Platform 將會定期執行發信動作。
+Mail Module provides users functions send E-mail. E-mail contents are delivered to NEBULA through this module, and NEBULA platform would periodically send them.  
 
 ## Send Mail
 ---------------
 
-Mail Module 目前提供 `Send` 方法來寄送
+Module currently provides `Send` function to send mails  
 
 ```java
 StringBuffer buf = new StringBuffer();
@@ -33,33 +33,33 @@ boolean returnModel = mailModule.send(reqModel);
 
 ```
 
-目前 Message 可使用的屬性，以程式方式說明：
+The current avaiable Message properties are described below:  
 
 ```java
 public class Message {
 
-	// 郵件發送者地址
+	// Sender's email address
 	private InternetAddress from;
 
-	// 郵件寄送地址
+	// Recipients' email addresses
 	private List<InternetAddress> to;
 
-	// 副本
+	// CC
 	private List<InternetAddress> cc;
 
-	// 密件副本
+	// BCC
 	private List<InternetAddress> bcc;
 
-	// 郵件類型
+	// Mail Type
 	private String type;
 
-	// 郵件主旨
+	// Mail Subject
 	private String subject;
 
-	// 郵件內容
+	// Mail Body
 	private String body;
 
-	// 狀態
+	// Status
 	private String status;
 
 }
@@ -69,9 +69,9 @@ public class Message {
 ## Attachment
 ----------------
 
-若郵件需要附帶檔案，需要透過 `com.quanta.nebula.module.Attachment` 物件，將要上傳的檔案轉換成 byte[] ，並將檔案名稱與 byte[] 內容放入 `Attachment` 物件中。  
+If you need to attach a file in an email, you need to convert the file to byte[] through `com.quanta.nebula.module.Attachment` object. Put the file name and the byte[] content into the `Attachment` object.
 
-範例程式：
+Sample Codes:  
 
 ```java
 File file = new File(MailModuleTest.class.getResource("test.zip").toURI());
@@ -92,15 +92,15 @@ MailModule mailModule = appContext.getModule(MailModule.class);
 boolean returnModel = mailModule.send(reqModel, attachmentList);
 ```
 
-`com.quanta.nebula.module.Attachment` 的屬性，以程式方式說明:
+`com.quanta.nebula.module.Attachment` properties, described below:  
 
 ```java
 public class Attachment {
 
-	// 附件檔案名稱
+	// Attached file name
 	private String fileName;
 
-	// 附件檔案內容
+	// Attached file content
 	private byte[] data;
 
 }

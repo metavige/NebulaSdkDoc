@@ -1,17 +1,17 @@
 Nebula.Web
 ================
 
-支援 JAVA Web Project，提供相關的 Provider 支援
+JAVA Web Project and provides necessary Provider supports  
 
 ## WebAppContext
 ----------------
 
-透過 `com.quanta.nebula.web.WebAppContext` 取得 `AppContext`, 以利取得 Module 與 Saas 相關屬性值
+Obtain Modules and SaaS related property values by `AppContext` through `com.quanta.nebula.web.WebAppContext`  
 
-## 使用範例
+## Examples
 ----------------
 
-### 取得 Module
+### Obtain Module
 
 ```java
 AppContext appContext = WebAppContext.getCurrentAppContext();
@@ -19,12 +19,12 @@ AppContext appContext = WebAppContext.getCurrentAppContext();
 Module module = appContext.getModule(Module.class);
 ```
 
-### 取得Saas相關屬性值
+### Obtain SaaS properties
 
 ```java
-// 取得此 SaaS 應用程式在 nebula.properties 中設定的產品代碼
+// Obtain the SaaS Product ID in the nebula.properties configuration
 string productId = WebAppContext.getCurrentAppContext().getSolutionContext().getProductId();
 
-// 取得此 SaaS 應用程式在 nebula.properties 設定的應用程式代碼
+// Obtain the SaaS Application ID in the nebula.properties configuration
 string applicationId = WebAppContext.getCurrentAppContext().getSolutionContext().getApplicationId();
 ```

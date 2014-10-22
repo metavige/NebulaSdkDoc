@@ -1,16 +1,15 @@
 
 SqlModule
 ================
+After Version 1.3, Nebula adds an `Quanta.PaaS.Module.Database.ISqlModule`, which is to support ordinary Sql commands.  
 
-Nebula 1.3 版之後，新增加一個 `Quanta.PaaS.Module.Database.ISqlModule`，主要是支援一般的 Sql 指令執行。  
-
-目前 SqlModule 僅提供以下方法執行 Sql
+SqlModule currently provides the following functions to perform Sql:  
 
 ## ExecuteDateSet  
 ----------------
 
 ```csharp
-// 利用 PaaS 的 SqlModule 提供的功能，讀取資料庫的資料，顯示在畫面上
+// Read database data and display on screen provie by PaaS SqlModule function
 var sqlModule = AppContext.Current.GetModule<ISqlModule>();
 var ds = sqlModule.ExecuteDataSet(
 	@"Select * from Customers where CustomerID like @customerId",

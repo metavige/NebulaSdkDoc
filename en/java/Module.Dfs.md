@@ -1,12 +1,12 @@
 Dfs Module
 =================
 
-Dfs Module 提供使用者查詢 dfs 路徑的功能
+Dfs module provides users function to query dfs paths
 
-## 使用範例
+## Examples
 ----------------
 
-透過 Resource ID 取得 dfs path
+Obtain DFS path through Resource ID
 
 ```java
 AppContext appContext = WebAppContext.getCurrentAppContext();
@@ -17,4 +17,4 @@ String resId = "***";
 String path = dfsModule.getRelativeDfsPath(resId);
 ```
 
-> Resource ID 請到 [開發者專區](http://www.quanta-camp.com/Developer/) 申請 DFS 資源後取得
+> Resource ID go [Developer Area](http://www.quanta-camp.com/Developer/) apply after obtaining the DFS resource

@@ -1,14 +1,15 @@
+
 Office Module
-===============
+================
 
-以下說明 Office Module 的功能及使用方式。目前只提供存取符合 Open XML 格式的Excel檔案(.xlsx)，請依照以下步驟說明逐一進行操作
+The following describes Office Module function and implementation. Office Module currently provides Excel file based on Open XML format (.xlsx). Please follow the instruction steps to code.
 
-## Excel 使用說明
----------------
+## Excel implemenation
+-----------------
 
-* 必須先引用 `Quanta.PaaS.Module.Office.dll` 及 `DocumentFormat.OpenXml.dll`(Open XML SDK 2.0) 組件。
-* 詳細的規格說明文件可以參考 QuantaCloudPlatformSDK.chm 檔案。
-* 引用的 namespace 如下
+* Must reference `Quanta.PaaS.Module.Office.dll` and `DocumentFormat.OpenXml.dll`(Open XML SDK 2.0) assemblies first.
+* Detailed specification document is QuantaCloudPlatformSDK.chm.
+* Use the following namespace
 
 ```csharp
 using DocumentFormat.OpenXml;
@@ -17,18 +18,18 @@ using DocumentFormat.OpenXml.Spreadsheet;
 using Quanta.PaaS.Module.Office.Excel;
 ```
 
-目前在 Office Module 中提供的類別如下
+Office Module currently provides the following functions:
 
-* ExcelFileRead - 提供讀取Excel檔案的功能。
-* ExcelFileWrite - 提供寫入Excel檔案的功能。
-* ExcelSheetRead - 提供讀取Excel工作表的功能。
-* ExcelSheetWrite - 提供寫入Excel工作表的功能。
-* ExcelFileStyle - 提供設定Excel格式的功能。
+* ExcelFileRead - Read Excel file.
+* ExcelFileWrite - Write Excel file.
+* ExcelSheetRead - Read Excel sheet.
+* ExcelSheetWrite - Write Excel sheet.
+* ExcelFileStyle - Set Excel format.
 
-## 使用範例
----------------
+## Sample code
+-----------------
 
-### 讀取某Excel檔案的資料
+### Read an Excel file data
 
 ```csharp
 MemoryStream stream = ExcelFileRead.StreamFromFile(@"c:\template_data.xlsx");
@@ -38,7 +39,7 @@ WorksheetPart worksheetPart = ExcelFileRead.GetWorksheetPartByName(doc, "Sheet1"
 DataTable dtData = ExcelSheetRead.ReadData(doc, worksheetPart, "A2", "C4");
 ```
 
-### 寫入資料到Excel檔案
+### Write data into an Excel file
 
 ```csharp
 DataTable dtData = new DataTable();
@@ -85,7 +86,7 @@ ExcelFileWrite.Save(doc);
 ExcelFileWrite.StreamToFile(@"c:\test_new.xlsx", stream);
 ```
 
-### 複製某段區域的格式並寫入資料到Excel檔案
+### Copy format within an area and write data into an Excel file
 
 ```csharp
 DataTable dtData = new DataTable();
