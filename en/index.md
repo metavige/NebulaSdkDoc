@@ -5,9 +5,7 @@ This document introduces all necessary information and details about Nebula Soft
 
 Developer who just starts to use Nebula SDK
 
-if you are .Net developer, can start and learn from [.Net QuickStart](#dotnet/QuickStart) 
-if you are Java developer, can start and learn from [Java QuickStart](#java/QuickStart) 
+if you are .Net developer, can start and learn from [.Net QuickStart](dotnet/QuickStart.md) 
+if you are Java developer, can start and learn from [Java QuickStart](java/QuickStart.md)
 
 to quickly create an executable project.
-
-

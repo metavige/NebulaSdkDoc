@@ -14,7 +14,7 @@ OAuth2 登入機制流程說明
 ----------------
 
 在 Nebula SDK 中  
-若專案為 Asp.Net Mvc 4 以前的版本，有提供一個 [Nebula.Web.Security](Nebula.Security.md) 的 Nuget Package
+若專案為 Asp.Net Mvc 4 以前的版本，有提供一個 [Nebula.Web.Security](Nebula.Web.Security.md) 的 Nuget Package
 若專案為 Asp.Net Mvc 5，請使用 [Nebula.Web.Identity](Nebula.Web.Identity.md) 的 Nuget Package  
 安裝後，就可以與 [CAMP](http://www.quanta-camp.com) 的帳號做整合
 

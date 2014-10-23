@@ -2,9 +2,6 @@
 
 [Toturial]()
 
-  * # Common
-  * [Multi-Tenancy](MultiTenancy.md)
-  - - - -
   * # .Net
   * [QuickStart](dotnet/QuickStart.md)
   * [登入驗證](dotnet/Authentication.md)
@@ -15,6 +12,9 @@
   * # Java
   * [QuickStart](java/QuickStart.md)
   * [登入驗證](java/Authentication.md)
+  - - - -
+  * # Common
+  * [Multi-Tenancy](MultiTenancy.md)
 
 [Packages]()
 
@@ -58,7 +58,7 @@
   * [Mail Module](java/Module.Mail.md)
   * [Log Module](java/Module.Logging.md)
 
-[語系]()
+[變更語系]()
 
   * [繁體中文](../tw/)
   * [English](../en/)

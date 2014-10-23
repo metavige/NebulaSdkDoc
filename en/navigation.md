@@ -2,9 +2,6 @@
 
 [Toturial]()
 
-  * # Common
-  * [Multi-Tenancy](MultiTenancy.md)
-  - - - -
   * # .Net
   * [QuickStart](dotnet/QuickStart.md)
   * [Authentication](dotnet/Authentication.md)
@@ -15,6 +12,9 @@
   * # Java
   * [QuickStart](java/QuickStart.md)
   * [Authentication](java/Authentication.md)
+  - - - -
+  * # Common
+  * [Multi-Tenancy](MultiTenancy.md)
 
 [Packages]()
 

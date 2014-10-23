@@ -15,7 +15,7 @@ Nebula.Web.Security
 
 以下的設定為參考範例。  
 
-目前以下的設定，除了 &lt;authentication/&gt; 的設定需要自行加入，handler 的設定在加入 `Nebula.Web.Security` 的 Package 時，便會自動加入。
+目前以下的設定，除了 `<authentication />` 的設定需要自行加入，handler 的設定在加入 `Nebula.Web.Security` 的 Package 時，便會自動加入。
 
 ```xml
 <configuration>
@@ -38,7 +38,7 @@ Nebula.Web.Security
 </configuration>
 ```
 
-加入以上設定後，請在 `Global.asax.cs` 忽略 LogOn 這個網址，避免錯誤
+加入以上設定後，請在 `Global.asax.cs` 加入 `routes.IgnoreRoute("LogOn");` 這段程式碼，用來忽略 LogOn 這個網址，避免錯誤
 
 ```csharp
 public class MvcApplication : System.Web.HttpApplication
@@ -141,7 +141,8 @@ public class HomeController : Controller
 
 ## Asp.Net Provider Support
 
-Asp.Net 2.0 提供一個 [Provider](http://msdn.microsoft.com/zh-tw/library/aa478948.aspx) 的機制，將角色、使用者資料作抽象化。Nebula Security Module 根據這個 Provider 的 Model，實作出 `RoleProvider` 以及 `ProfileProvider`，提供給 SaaS 服務應用程式，可利用以下的方式，與 Nebula CloudPlatform 的使用者資料整合。
+Asp.Net 2.0 提供一個 [Provider](http://msdn.microsoft.com/zh-tw/library/aa478948.aspx) 的機制，將角色、使用者資料作抽象化。  
+Nebula.Web.Security 根據這個 Provider 的 Model，實作出 `RoleProvider` 以及 `ProfileProvider`，提供給 SaaS 服務應用程式，可利用以下的方式，與 Nebula CloudPlatform 的使用者資料整合。
 
 ![Asp.Net 2.0 Provider Model](http://i.msdn.microsoft.com/dynimg/IC126090.gif)  
 
@@ -166,7 +167,7 @@ Asp.Net 2.0 提供一個 [Provider](http://msdn.microsoft.com/zh-tw/library/aa47
 
 其他屬性請參考 [RoleManager](http://msdn.microsoft.com/zh-tw/library/ms164660%28v=vs.80%29.aspx) 的設定說明。  
 
-目前 Nebula.Security 有提供 `RoleProvider` 所有的功能實作。所有查詢或維護的 `Role` 資料，都會是在與登入使用者相同的 `Solution` (Solution 說明請參考 [Multi-Tenancy](../MultiTenancy.md))。
+目前 Nebula.Web.Security 有提供 `RoleProvider` 所有的功能實作。所有查詢或維護的 `Role` 資料，都會是在與登入使用者相同的 `Solution` (Solution 說明請參考 [Multi-Tenancy](../MultiTenancy.md))。
 
 使用範例說明 :  
 ```csharp

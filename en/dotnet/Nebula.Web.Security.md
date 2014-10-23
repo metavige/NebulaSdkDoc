@@ -14,7 +14,7 @@ This Package is currently only supports Asp.Net MVC 4 previous project, Asp.Net 
 
 The following settings is an example.
 
-Other than the setting of &lt;authentication/&gt; element, which needs to be manually inserted, the other settings of handler would be automatically inserted when `Nebula.Web.Security` Package is added.
+Other than the setting of `<authentication />` element, which needs to be manually inserted, the other settings of handler would be automatically inserted when `Nebula.Web.Security` Package is added.
 
 ```xml
 <configuration>
@@ -37,7 +37,7 @@ Other than the setting of &lt;authentication/&gt; element, which needs to be man
 </configuration>
 ```
 
-Please add code routes.IgnoreRoute("LogOn") on `Global.asax.cs` for error prevention, after you add the above settings.  
+Please add code `routes.IgnoreRoute("LogOn")` on `Global.asax.cs` for error prevention, after you add the above settings.  
 
 ```csharp
 public class MvcApplication : System.Web.HttpApplication
@@ -137,7 +137,8 @@ The default URL of OAuth2 Provider in Nebula Public Cloud is [http://www.quanta-
 
 ## Asp.Net Provider Support
 
-Asp.Net 2.0 provides a [Provider](http://msdn.microsoft.com/en-us/library/aa478948.aspx) technique, which abstract role and user data. Nebula Security Module implement `RoleProvider` and `ProfileProvider` based on this Provider model, that suppports SaaS to integrate user data of Nebula Cloud Platform by the methods below.
+Asp.Net 2.0 provides a [Provider](http://msdn.microsoft.com/en-us/library/aa478948.aspx) technique, which abstract role and user data.  
+Nebula.Web.Security implement `RoleProvider` and `ProfileProvider` based on this Provider model, that suppports SaaS to integrate user data of Nebula Cloud Platform by the methods below.  
 
 ![Asp.Net 2.0 Provider Model](http://i.msdn.microsoft.com/dynimg/IC126090.gif)  
 
@@ -162,7 +163,7 @@ The following below explain the related uses：
 
 Please read [RoleManager](http://msdn.microsoft.com/en-us/library/ms164660%28v=vs.80%29.aspx) for other properties and settings.
 
-Nebula.Security provides all `RoleProvider` implemented functions. All queries or maintained `Role` data will be within the `Solution` user logs in. (Please read [Multi-Tenancy](../MultiTenancy.md) for more about Solution)。
+Nebula.Web.Security provides all `RoleProvider` implemented functions. All queries or maintained `Role` data will be within the `Solution` user logs in. (Please read [Multi-Tenancy](../MultiTenancy.md) for more about Solution)。
 
 Sample code descriptions:
 ```csharp
