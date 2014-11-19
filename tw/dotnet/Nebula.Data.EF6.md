@@ -18,7 +18,7 @@ Support Entity Framework 6
 
 ```xml
 <entityFramework>
-    <defaultConnectionFactory type="Nebula.Data.Entity.NebulaDbConnectionFactory, Nebula.Data.Entity" />
+    <defaultConnectionFactory type="Nebula.Data.Entity.NebulaDbConnectionFactory, Nebula.Data.EF6" />
 
     <providers>
         <provider invariantName="System.Data.SqlClient" type="System.Data.Entity.SqlServer.SqlProviderServices, EntityFramework.SqlServer" />

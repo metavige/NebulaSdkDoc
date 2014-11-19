@@ -4,7 +4,6 @@ Nebula.Web.Identity
 To support Asp.Net Identity (2.0) login mechanism.  
 
 ## Install
------------------
 
     Install-Package Nebula.Web.Identity
 
@@ -12,7 +11,6 @@ To support Asp.Net Identity (2.0) login mechanism.
 > Note: Do not install with [Nebula.Web.Security] (Nebula.Web.Security.md)
 
 ## Introduction
------------------
 
 Currently, after Asp.Net MVC 5, built-in authentication mechanism has been changed from the original `Membership` to `Asp.Net Identity`, in order to distinguish with the original authentication mechanism, used to support the independence of a Package Asp.Net Identity  
 Because `Asp.Net Identity` with the original `Membership` mechanism is not the same, so when the new project created in `web.config` There are several early support `FormsAuthentication` not the same place:  
@@ -135,9 +133,20 @@ public class ChallengeResult : HttpUnauthorizedResult
 }
 ```
 
+## web.config modify
+
+Add appSetting at web.config
+
+```xml
+<configuration>
+    <appSettings>
+        <add key="Nebula_LogOnSite" value="http://www.quanta-camp.com/OpenId" />
+    </appSettings>
+</configuration>
+```
 
 ## How-to
------------------
+
 Go `App_Start/Startup.Auth.cs` file, make the following changes to the program
 
 ### Change LoginPath
@@ -207,7 +216,7 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
 ```
 
 ## Authorize
-----------------
+
 
 Asp.Net Identity still support `AuthorizeAttribute`, The need to verify the `Controller`/`Action` authorization attributes can be set  
 
@@ -225,7 +234,6 @@ public class MyController : Controller {
 
 
 ## LogOut
-----------------
 
 The new version of the One Asp.Net project, log out of the way, currently used is `POST` way to send request  
 So can go to `Views/Shared/_LogPartial.html` to modify logout path  
@@ -260,7 +268,7 @@ The following reference examples:
 ```
 
 ## Get User Information
-----------------
+
 The following programming examples are based on the `System.Web.Mvc.Controller` paradigm. Using a Controller's User property.
 In other places, use the same `HttpContext.Current.User` can get.
 

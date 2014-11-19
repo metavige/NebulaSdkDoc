@@ -4,7 +4,7 @@ Nebula.Web.Identity
 用來支援 Asp.Net Identity (2.0) 的登入機制。  
 
 ## 安裝 Package
------------------
+
 
     Install-Package Nebula.Web.Identity
 
@@ -12,7 +12,7 @@ Nebula.Web.Identity
 > Note: 請勿與 [Nebula.Web.Security](Nebula.Web.Security.md) 一起安裝
 
 ## 簡介
------------------
+
 
 目前在 Asp.Net MVC 5 之後，內建的驗證機制已經由原本的 `Membership` 改成 `Asp.Net Identity`，為了與原本的驗證機制區分，將獨立一個 Package 用來支援 Asp.Net Identity
 由於 `Asp.Net Identity` 與原本的 `Membership` 機制不相同，所以新專案建立的時候，在 `web.config` 有幾項與早期支援 `FormsAuthentication` 不一樣的地方：  
@@ -135,9 +135,19 @@ public class ChallengeResult : HttpUnauthorizedResult
 }
 ```
 
+## web.config 設定修改
+
+請到 web.config 加入以下的 AppSettings  
+
+```xml
+<configuration>
+    <appSettings>
+        <add key="Nebula_LogOnSite" value="http://www.quanta-camp.com/OpenId" />
+    </appSettings>
+</configuration>
+```
 
 ## 程式修改說明
------------------
 
 請到 `App_Start/Startup.Auth.cs` 檔案中，做以下程式的修改  
 
@@ -150,6 +160,7 @@ public class ChallengeResult : HttpUnauthorizedResult
 在 ConfigurationAuth 方法最後加上一段程式碼 `app.UseCampAuthentication();`  
 
 ### 與原本的 ApplicationUserManager 結合
+
 預設 `Nebula.Web.Identity` 有內建一個 `UserManager`，會與 CAMP 做結合，取得相關的 `Profile` 資料。  
 但如果需要與專案中內建的 `ApplicationUserManager` 結合，當做一個 `ExternalLogin` 機制的話，設定 `CampAuthentication` 的時候需要加上 `useInternalUserManager: false` 的參數
 
@@ -208,7 +219,6 @@ app.UseCookieAuthentication(new CookieAuthenticationOptions
 ```
 
 ## 驗證
-----------------
 
 Asp.Net Identity 仍舊支援 `AuthorizeAttribute`，在需要驗證的 `Controller`/`Action` 加上授權屬性的設定就可以  
 
@@ -226,7 +236,6 @@ public class MyController : Controller {
 
 
 ## 登出
-----------------
 
 新版本 One Asp.Net 專案中，登出的方式，目前採用的是 `POST` 的方式送出要求  
 所以可以到 `Views/Shared/_LogPartial.html` 去修改登出路徑  
