@@ -83,7 +83,7 @@ client_id | 必要 | 產品代碼。<br/> 請先申請一個 CAMP 產品，取�
 redirect_uri | 必要 | 登入驗證後，HTTP 302 重導回 SaaS 的網址
 response_type | 必要 | 'code'
 state | 必要 | 通用參數，用來維持最初狀態。可自行定義。
-scope | 選擇 | 通用參數，用來指定資源存取範圍。<br/>資源內容請參考下方資源網址 <br/>(網址請傳入完整的網址，非相對網址)。
+scope | 選擇 | 通用參數，用來指定資源存取範圍。<br/>若要需要存取多組 scope, 可以用空白將多組 scope 合併在一起呼叫 <br/>(scope 請參考以下存取資源說明)。
 
 ##### 回應
 
@@ -132,11 +132,11 @@ grant_type | 'authorization_code'
 HTTP 200 - 成功
 ```javascript
 {
-    "access_token": "gAAAAG8vXEjz0VLsCVKHyjI4VBtfYklR_JwuH8S9QA0LkgGDTKSx7pvDG-eQ5WTeCSAWcHOeA8Ga3hK-_2KARznZq-4ZmaKh9m_GCjEoApBzhXeMXxo3L_KX9zrf7C8f4yXZu_crc6jNh1z98P1jytZvlXReHjXP0TYEDjQ71UfO5LC-RAEAAIAAAAChxEYuF1MMYdw5rauytPVWuF8IMx95-d6TqJ_5yaLWqUs3wxnQsnEMLKaXCDOmVpfm9gM4yMJUce_RiFXpOU4FPlmYlRMKKfug1ANnWLS2L9IW1XxsYH_Us1PArHBl7UuM_Zlke0Qa4Luwu1SrQxwUJ-OqhHsswOgQKu3PKXVSHvMBK5XX5RkUj491fDFaVQIXRWBbg0c7WEdO5vwJRbU6NaXIYryCHH6m6jbRAL6B7cerHhkC_RlkwVd6Ll6tjWlHKCUQNXUavIcl2INcvYDp7pYrZB4Ied7q5XG3Syy5xiw7mhVdA14ffeFDP3YWU0sixV_0hsJhCv3v84XjHobJ7fSkAwq_dSQ3knVJz4Ecykzlz_Eb84x5Oav3Cjg0nLSGg5gh74pmw5YlQmZzTVlSxLZpmQmEoJkv_VYUfA4dzg",
+    "access_token": "gAAAAG8vXEjz0VLsCVKHyjI4VBtfYklR...",
     "token_type": "bearer",
     "expires_in": 120,
-    "refresh_token": "IOsJ!IAAAAPYdtDryZUvKpAPMl_l9x9p5dUZYiCtyEIvQP_-4S1M64QAAAAEgUaowK9ms3viCp_8g_j-4XqMAB4hE9Z996Ib5TUplGNuE-3a0LRWTE23Az2kdIR0--lOOm2MA9xwIncln180WcRpEeXvC_QIHvJCoocNbAN2sxzEI2wRjlmkXdKXiwAGSoKWRJkdthI7O2JrhvOFjhcEDxsnroRTA2VtEr6VR6sEZgJ2s3GsmwDWWDNiElCnuuu6hRy4mB0Gh_9j3-sm9GJz8eaecp-sVQqtwtrmBIYT97ydj-Upm_4vNOpU2G8dlEYyjmieELZs1OG3oxmWFuWXdDohpySZpygbtGPYp_Q",
-    "scope": "http://www.quanta-camp.com/OpenId/Profile/UserIdentity"
+    "refresh_token": "IOsJ!IAAAAPYdtDryZUvKpAPMl_l9x9p5dUZYiCtyEIvQP...",
+    "scope": "Profile/UserIdentity"
 }
 ```
 
@@ -155,7 +155,7 @@ scope | 回傳當初第一步驟要求的scope資料
 
 存取資源的方式，可透過 System.Net.WebRequest 或任何 HTTP Client 呼叫  
 
-##### 使用者帳號
+##### 使用者帳號 (scope = Profile/UserIdentity)  
 
 ###### URI
 **GET Profile/UserIdentity**  
@@ -175,7 +175,7 @@ HTTP 200
 ```
 
 -----
-##### 使用者資訊  
+##### 使用者資訊 (scope = Profile/UserInfo)  
 
 ###### URI
 **GET Profile/UserInfo**  
@@ -199,7 +199,7 @@ HTTP 200
 ```
 
 -----  
-##### 公司資訊
+##### 公司資訊 (scope = Profile/companyInfo)  
 
 ###### URI
 **GET Profile/CompanyInfo**  
@@ -236,7 +236,7 @@ HTTP BASIC 驗證，帳號為**產品代碼**，密碼為**產品授權碼**
 
 Name | Value
  --- | ---
-code | 請傳入步驟 2 取得的 Refresh Token
+refresh_token | 請傳入步驟 2 取得的 Refresh Token
 grant_type | 'refresh_token'
 
 ##### Response
@@ -245,11 +245,11 @@ HTTP 200 - 成功
 
 ```javascript
 {
-    "access_token": "gAAAAEliWLz7kqoeuL_KMPChLXF6OHpo-hAnuDsC_NrrntzG7zO6nuEAWCxn6yCGL5huH3vKP1Jfwj7FovifZFdzOpB4TCfQxaHWSyZI1RChGzLH0jVJqsVKCnNkpKbyN0GvZWddQCB6lp8NxGL8tw32c6g7_4edzlGwmiWMTdNMZgOcRAEAAIAAAABwVbUFrTrdUcrqHSiwkr3bZqiSExr1w_x1qkVr5Wc9SvcxZpVrN9Jjy_B9o4U2xam8FfbfVshSbqit1RvhW6nbUDoci_fad9nUc0p1um15qncwsxYvJfGSgIoHOl3pQ4RhVmgNw0SXU0EUHHiFQe6RQ8Vt3fLnqe1h4Hdjb69kyq6QyNowcf3kKEuNq77HqWRMXvS7MxkTq6nd7IQ22vwGjnk7_ZCrjbfPC85j3RRCHznHs-clUEWzT0pd3Xlmq_APodCrzVE9CU44uiheMOV9ZM3kNcCvK5-SsVgnn3Ob0666t6cED9NFii1wxVxQE5FPOrBwaRp-WxTYQOeSGSkiHVxCtR6PwOTTqqV8NGhG-QTv-Hg_lhCcExtDcgoejiEVBEBFv1WzTYZ86iqRr5iVYaC1F5ukaGTdAlgF_PGYog",
+    "access_token": "gAAAAEliWLz7kqoeuL_KMPChLXF6OHpo....",
     "token_type": "bearer",
     "expires_in": 120,
-    "refresh_token": "IOsJ!IAAAAEzZQuV-F65rxc-6pti9iQMOKkQoYzD7ptYJkWEQ_cEA4QAAAAE-qTl-bvIzRbiGO7RMvikPQKCwS1wbaMjWL6WPTEv0TVaM_5hLojzXRV6vG98CxQPM7gVNvtiz-fcr9TINqtG5k5fgkr9egPjEgvLhIE4JlRO0UHBo9UJyxyXGQhTR3cJvlzcX_K2y4oLL1dqWK1beD0kWwqoz1KEbZJwLrTH53UUz6FCf0rw7OJ-W8FP5-PPV-LN95LHCQxZ_U7-G9RefZxuGXIE1Ih1rRyn4LMmMivv9AKM9e3ckyFFdrup_UYvCrm4lk5pzwDnnuQXA_har9Uj_l3IBZMEgj0MgoPE2ZA",
-    "scope": "http://www.quanta-camp.com/OpenId/Profile/UserIdentity"
+    "refresh_token": "IOsJ!IAAAAEzZQuV-...",
+    "scope": "Profile/UserIdentity"
 }
 ```
 
